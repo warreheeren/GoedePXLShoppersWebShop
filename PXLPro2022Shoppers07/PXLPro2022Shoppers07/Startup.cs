@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PXLPro2022Shoppers07.Data;
 
 namespace PXLPro2022Shoppers07
 {
@@ -23,7 +26,13 @@ namespace PXLPro2022Shoppers07
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<appDbContext>();
+            services.AddDbContext<appDbContext>(x =>
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +53,7 @@ namespace PXLPro2022Shoppers07
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -52,6 +62,7 @@ namespace PXLPro2022Shoppers07
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            SeedData.MigrateAndPopulate(app);
         }
     }
 }
