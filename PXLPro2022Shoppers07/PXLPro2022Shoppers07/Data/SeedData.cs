@@ -30,7 +30,7 @@ namespace PXLPro2022Shoppers07.Data
                 .GetRequiredService<UserManager<IdentityUser>>();
             await CreateRolesAsync(context, roleManager);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "admin@pxl.be", "Adm!n007", Roles.Admin);
-            await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Admin);
+            await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Client);
         }
 
         public static async Task CreateRolesAsync(appDbContext context, RoleManager<IdentityRole> roleManager)
