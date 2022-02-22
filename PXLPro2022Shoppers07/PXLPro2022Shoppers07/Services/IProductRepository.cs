@@ -1,0 +1,11 @@
+﻿using System.Collections.Generic;
+using PXLPro2022Shoppers07.Models;
+
+namespace PXLPro2022Shoppers07.Services
+{
+    public interface IProductRepository
+    {
+        IEnumerable<Product> AllProducts { get; }
+        Product GetProductById(int productId);
+    }
+}

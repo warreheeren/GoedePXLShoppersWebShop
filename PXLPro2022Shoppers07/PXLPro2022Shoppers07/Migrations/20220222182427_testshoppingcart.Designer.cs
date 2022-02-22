@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PXLPro2022Shoppers07.Data;
 
 namespace PXLPro2022Shoppers07.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220222182427_testshoppingcart")]
+    partial class testshoppingcart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,8 +217,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-<<<<<<< Updated upstream
-=======
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -384,7 +384,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
->>>>>>> Stashed changes
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -435,8 +434,6 @@ namespace PXLPro2022Shoppers07.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-<<<<<<< Updated upstream
-=======
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.Order", b =>
                 {
@@ -484,7 +481,6 @@ namespace PXLPro2022Shoppers07.Migrations
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId");
                 });
->>>>>>> Stashed changes
 #pragma warning restore 612, 618
         }
     }
