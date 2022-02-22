@@ -1,0 +1,44 @@
+﻿@model PXLPro2022Shoppers07.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Selected amount</th>
+            <th>Product</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.ShoppingCart.ShoppingCartItems)
+        {
+
+            <tr>
+                <td class="text-center">@product.Amount</td>
+                <td class="text-center">@product.Product.ProductId</td>
+                <td class="text-center">@product.Product.ProductName</td>
+                <td class="text-right">@product.Product.Price.ToString("c")</td>
+                <td class="text-right">
+                    @((product.Amount * product.Product.Price).ToString("c"))
+                </td>
+            </tr>
+
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.ShoppingCartTotal.ToString("C")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

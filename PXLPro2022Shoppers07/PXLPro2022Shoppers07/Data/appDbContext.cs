@@ -13,6 +13,8 @@ namespace PXLPro2022Shoppers07.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }

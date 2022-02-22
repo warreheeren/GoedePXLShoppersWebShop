@@ -6,6 +6,6 @@ namespace PXLPro2022Shoppers07.Services
     public interface IProductRepository
     {
         IEnumerable<Product> AllProducts { get; }
-        void GetProductById(int productId);
+        Product GetProductById(int productId);
     }
 }
