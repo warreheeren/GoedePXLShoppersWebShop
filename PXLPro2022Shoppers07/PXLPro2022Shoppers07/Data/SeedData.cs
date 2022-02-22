@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using PXLPro2022Shoppers07.Models;
 
 namespace PXLPro2022Shoppers07.Data
 {
@@ -31,7 +33,31 @@ namespace PXLPro2022Shoppers07.Data
             await CreateRolesAsync(context, roleManager);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "admin@pxl.be", "Adm!n007", Roles.Admin);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Admin);
+
+            await CreateProduct(context);
         }
+
+        static async Task CreateProduct(appDbContext context)
+        {
+            var category = new Category();
+            category.CategoryName = "Test";
+            category.Description = "Lorem ipsum";
+            var image = new ProductImage();
+            var image2 = new ProductImage();
+            image.Name = "Test";
+            image.ProductImageByte = await File.ReadAllBytesAsync(@"Images/Porsche.jpg");
+            image2.Name = "Test2";
+            image2.ProductImageByte = await File.ReadAllBytesAsync(@"Images/Ferrari.jpg");
+            var product = new Product();
+            product.ProductName = "Test";
+            product.Price = 3000;
+            product.Category = category;
+            product.ProductImage = new List<ProductImage> { image,image2};
+
+            context.Products.Add(product);
+            await context.SaveChangesAsync();
+        }
+
 
         public static async Task CreateRolesAsync(appDbContext context, RoleManager<IdentityRole> roleManager)
         {
@@ -52,13 +78,13 @@ namespace PXLPro2022Shoppers07.Data
             }
         }
 
-        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string email,string pwd, string role)
+        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string email, string pwd, string role)
         {
 
             if (await userManager.FindByEmailAsync(email) == null)
             {
                 await CreateRolesAsync(context, roleManager);
-                var identityUser = new IdentityUser() { Email = email, UserName = email};
+                var identityUser = new IdentityUser() { Email = email, UserName = email };
                 var result = await userManager.CreateAsync(identityUser, pwd);
                 if (result.Succeeded)
                 {

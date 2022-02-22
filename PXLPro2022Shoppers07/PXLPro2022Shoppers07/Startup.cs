@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PXLPro2022Shoppers07.Data;
+using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07
 {
@@ -33,6 +34,8 @@ namespace PXLPro2022Shoppers07
             services.AddDbContext<appDbContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
