@@ -33,6 +33,12 @@ namespace PXLPro2022Shoppers07
             services.AddDbContext<appDbContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages();
+<<<<<<< Updated upstream
+=======
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+>>>>>>> Stashed changes
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
