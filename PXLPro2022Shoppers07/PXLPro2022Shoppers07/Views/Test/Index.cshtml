@@ -42,12 +42,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
-            @foreach (var x in item.ProductImage)
+            @*@foreach (var x in item.ProductImage)
             {
                 <td>
                     <img src="@x.Base64String" width="50"/>
                 </td>
-            }
+            }*@
 
             <td>
                 @Html.ActionLink("Details", "Details", new {  id=item.ProductId }) |

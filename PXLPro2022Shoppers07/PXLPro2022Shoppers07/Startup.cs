@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PXLPro2022Shoppers07.Data;
+using PXLPro2022Shoppers07.Models;
 
 namespace PXLPro2022Shoppers07
 {
@@ -28,31 +29,31 @@ namespace PXLPro2022Shoppers07
         {
 
             services.AddControllersWithViews();
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<UserDetails, IdentityRole>()
                 .AddEntityFrameworkStores<appDbContext>();
             services.AddDbContext<appDbContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages();
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 7;
-                //options.Password.RequiredUniqueChars = 1;
-                options.User.RequireUniqueEmail = true;
-            });
-=======
-<<<<<<< Updated upstream
-=======
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
->>>>>>> Stashed changes
->>>>>>> bf425aebba15796da418a344e6e3ecc5da2d329e
+//            services.Configure<IdentityOptions>(options =>
+//            {
+//                options.Password.RequireDigit = true;
+//                options.Password.RequireLowercase = false;
+//                options.Password.RequireNonAlphanumeric = true;
+//                options.Password.RequireUppercase = true;
+//                options.Password.RequiredLength = 7;
+//                //options.Password.RequiredUniqueChars = 1;
+//                options.User.RequireUniqueEmail = true;
+//            });
+//=======
+//<<<<<<< Updated upstream
+//=======
+//            services.AddScoped<IProductRepository, ProductRepository>();
+//            services.AddScoped<ICategoryRepository, CategoryRepository>();
+//            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+//>>>>>>> Stashed changes
+//>>>>>>> bf425aebba15796da418a344e6e3ecc5da2d329e
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

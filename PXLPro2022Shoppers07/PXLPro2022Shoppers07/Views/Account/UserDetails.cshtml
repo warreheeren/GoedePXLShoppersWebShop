@@ -1,0 +1,15 @@
+﻿@model PXLPro2022Shoppers07.Models.UserDetails
+
+<h1>User Details</h1>
+<div class="container">
+    <div class="row d-flex align-content-center flex-column">
+          <h4>Welkom @Model.FirstName!</h4>
+          <hr />
+          <p>Email: @Model.Email</p> 
+          <p>Telefoon: @Model.PhoneNumber</p> 
+          <p>City: @Model.City</p> 
+          <p>Adres: @Model.StreetName @Model.HouseNumber</p> 
+          <p>Postcode: @Model.PostalCode</p>
+          <p>Geboortedatum: @Model.BirthDay</p>
+    </div>
+</div>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using PXLPro2022Shoppers07.Models;
 
 namespace PXLPro2022Shoppers07.Data
 {
@@ -26,8 +27,8 @@ namespace PXLPro2022Shoppers07.Data
 
 
 
-            UserManager<IdentityUser> userManager = app.ApplicationServices.CreateScope().ServiceProvider
-                .GetRequiredService<UserManager<IdentityUser>>();
+            UserManager<UserDetails> userManager = app.ApplicationServices.CreateScope().ServiceProvider
+                .GetRequiredService<UserManager<UserDetails>>();
             await CreateRolesAsync(context, roleManager);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "admin@pxl.be", "Adm!n007", Roles.Admin);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Client);
@@ -52,13 +53,13 @@ namespace PXLPro2022Shoppers07.Data
             }
         }
 
-        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string email,string pwd, string role)
+        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, string email,string pwd, string role)
         {
 
             if (await userManager.FindByEmailAsync(email) == null)
             {
                 await CreateRolesAsync(context, roleManager);
-                var identityUser = new IdentityUser() { Email = email, UserName = email};
+                var identityUser = new UserDetails() { Email = email, UserName = email };
                 var result = await userManager.CreateAsync(identityUser, pwd);
                 if (result.Succeeded)
                 {
