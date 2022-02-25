@@ -10,5 +10,9 @@ namespace PXLPro2022Shoppers07.Models
 
 
         public string Base64String => ImageHelper.CreateBase64StringFromByteArray(ProductImageByte);
+<<<<<<< HEAD
+=======
+
+>>>>>>> Emre
     }
 }

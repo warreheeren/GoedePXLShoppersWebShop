@@ -11,7 +11,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PXLPro2022Shoppers07.Data;
+<<<<<<< HEAD
 using PXLPro2022Shoppers07.Models;
+=======
+using PXLPro2022Shoppers07.Services;
+>>>>>>> Emre
 
 namespace PXLPro2022Shoppers07
 {
@@ -34,6 +38,7 @@ namespace PXLPro2022Shoppers07
             services.AddDbContext<appDbContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages();
+<<<<<<< HEAD
 //<<<<<<< HEAD
 
 //            services.Configure<IdentityOptions>(options =>
@@ -54,6 +59,11 @@ namespace PXLPro2022Shoppers07
 //            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 //>>>>>>> Stashed changes
 //>>>>>>> bf425aebba15796da418a344e6e3ecc5da2d329e
+=======
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+>>>>>>> Emre
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,6 +6,10 @@ namespace PXLPro2022Shoppers07.Models
     {
         public int ShoppingCartId { get; set; }
         public string IdentityUserId { get; set; }
+<<<<<<< HEAD
         public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; }
+=======
+        public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
+>>>>>>> Emre
     }
 }

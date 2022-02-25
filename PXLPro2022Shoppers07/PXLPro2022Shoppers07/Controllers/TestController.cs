@@ -15,9 +15,15 @@ namespace PXLPro2022Shoppers07.Controllers
     {
         IProductRepository _productRepository;
         IShoppingCartRepository _shoppingCartRepository;
+<<<<<<< HEAD
         UserManager<UserDetails> _userManager;
 
         public TestController( IProductRepository productRepository,IShoppingCartRepository shoppingCartRepository,UserManager<UserDetails> userManager)
+=======
+        UserManager<IdentityUser> _userManager;
+
+        public TestController( IProductRepository productRepository,IShoppingCartRepository shoppingCartRepository,UserManager<IdentityUser> userManager)
+>>>>>>> Emre
         {
             _productRepository = productRepository;
             _shoppingCartRepository = shoppingCartRepository;
