@@ -7,19 +7,22 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220215142252_initial.cs" />
     <Compile Remove="Migrations\20220215142252_initial.Designer.cs" />
-<<<<<<< HEAD
+    <Compile Remove="Migrations\20220222170501_initialldmeotestµ.cs" />
+    <Compile Remove="Migrations\20220222170501_initialldmeotestµ.Designer.cs" />
     <Compile Remove="Migrations\20220222182427_testshoppingcart.cs" />
     <Compile Remove="Migrations\20220222182427_testshoppingcart.Designer.cs" />
     <Compile Remove="Migrations\20220223141117_fixedBug.cs" />
     <Compile Remove="Migrations\20220223141117_fixedBug.Designer.cs" />
-=======
     <Compile Remove="Migrations\20220222141002_initialtest.cs" />
     <Compile Remove="Migrations\20220222141002_initialtest.Designer.cs" />
     <Compile Remove="Migrations\20220222142840_initialtest.cs" />
     <Compile Remove="Migrations\20220222142840_initialtest.Designer.cs" />
     <Compile Remove="Migrations\20220222170332_initialldmeotestµ.cs" />
     <Compile Remove="Migrations\20220222170332_initialldmeotestµ.Designer.cs" />
->>>>>>> Emre
+    <Compile Remove="Migrations\20220223154657_firstname.cs" />
+    <Compile Remove="Migrations\20220223154657_firstname.Designer.cs" />
+    <Compile Remove="Migrations\20220224083458_shoppingcart.cs" />
+    <Compile Remove="Migrations\20220224083458_shoppingcart.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

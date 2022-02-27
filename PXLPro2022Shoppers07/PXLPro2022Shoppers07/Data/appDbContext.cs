@@ -11,10 +11,7 @@ namespace PXLPro2022Shoppers07.Data
         {
             
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> Emre
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }

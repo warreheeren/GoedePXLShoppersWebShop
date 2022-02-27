@@ -317,7 +317,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.UserDetails", b =>
                 {
                     b.Property<string>("Id")
@@ -404,8 +403,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-=======
->>>>>>> Emre
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -459,11 +456,7 @@ namespace PXLPro2022Shoppers07.Migrations
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.Order", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("PXLPro2022Shoppers07.Models.UserDetails", "IdentityUser")
-=======
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
->>>>>>> Emre
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
                 });

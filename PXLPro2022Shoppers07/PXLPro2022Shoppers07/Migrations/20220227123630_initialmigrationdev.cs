@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PXLPro2022Shoppers07.Migrations
 {
-    public partial class initialldmeotestµ : Migration
+    public partial class initialmigrationdev : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,8 @@ namespace PXLPro2022Shoppers07.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    SecondName = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     PostalCode = table.Column<int>(nullable: false),
                     StreetName = table.Column<string>(nullable: true),
@@ -66,7 +68,6 @@ namespace PXLPro2022Shoppers07.Migrations
                 });
 
             migrationBuilder.CreateTable(
-<<<<<<< HEAD:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220223143055_initial.cs
                 name: "ShoppingCarts",
                 columns: table => new
                 {
@@ -80,8 +81,6 @@ namespace PXLPro2022Shoppers07.Migrations
                 });
 
             migrationBuilder.CreateTable(
-=======
->>>>>>> Emre:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220222170501_initialldmeotestµ.cs
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -282,9 +281,8 @@ namespace PXLPro2022Shoppers07.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-<<<<<<< HEAD:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220223143055_initial.cs
             migrationBuilder.CreateTable(
-                name: "ShoppingCartItem",
+                name: "ShoppingCartItems",
                 columns: table => new
                 {
                     ShoppingCartItemId = table.Column<int>(nullable: false)
@@ -295,23 +293,21 @@ namespace PXLPro2022Shoppers07.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCartItem", x => x.ShoppingCartItemId);
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.ShoppingCartItemId);
                     table.ForeignKey(
-                        name: "FK_ShoppingCartItem_Products_ProductId",
+                        name: "FK_ShoppingCartItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ShoppingCartItem_ShoppingCarts_ShoppingCartId",
+                        name: "FK_ShoppingCartItems_ShoppingCarts_ShoppingCartId",
                         column: x => x.ShoppingCartId,
                         principalTable: "ShoppingCarts",
                         principalColumn: "ShoppingCartId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
-=======
->>>>>>> Emre:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220222170501_initialldmeotestµ.cs
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -375,19 +371,16 @@ namespace PXLPro2022Shoppers07.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-<<<<<<< HEAD:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220223143055_initial.cs
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_ProductId",
-                table: "ShoppingCartItem",
+                name: "IX_ShoppingCartItems_ProductId",
+                table: "ShoppingCartItems",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_ShoppingCartId",
-                table: "ShoppingCartItem",
+                name: "IX_ShoppingCartItems_ShoppingCartId",
+                table: "ShoppingCartItems",
                 column: "ShoppingCartId");
-=======
->>>>>>> Emre:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220222170501_initialldmeotestµ.cs
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -414,12 +407,9 @@ namespace PXLPro2022Shoppers07.Migrations
                 name: "ProductImages");
 
             migrationBuilder.DropTable(
-<<<<<<< HEAD:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220223143055_initial.cs
-                name: "ShoppingCartItem");
+                name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
-=======
->>>>>>> Emre:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220222170501_initialldmeotestµ.cs
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -429,12 +419,9 @@ namespace PXLPro2022Shoppers07.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-<<<<<<< HEAD:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220223143055_initial.cs
                 name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-=======
->>>>>>> Emre:PXLPro2022Shoppers07/PXLPro2022Shoppers07/Migrations/20220222170501_initialldmeotestµ.cs
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(

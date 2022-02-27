@@ -32,9 +32,9 @@ namespace PXLPro2022Shoppers07.Data
                 .GetRequiredService<UserManager<UserDetails>>();
             await CreateRolesAsync(context, roleManager);
             await CreateIdentityRecordAsync(context, userManager, roleManager, "admin@pxl.be", "Adm!n007", Roles.Admin);
-<<<<<<< HEAD
+
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Client);
-=======
+
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Admin);
 
             await CreateProduct(context);
@@ -59,7 +59,6 @@ namespace PXLPro2022Shoppers07.Data
 
             context.Products.Add(product);
             await context.SaveChangesAsync();
->>>>>>> Emre
         }
 
 
@@ -82,21 +81,15 @@ namespace PXLPro2022Shoppers07.Data
             }
         }
 
-<<<<<<< HEAD
+
         private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, string email,string pwd, string role)
-=======
-        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string email, string pwd, string role)
->>>>>>> Emre
         {
 
             if (await userManager.FindByEmailAsync(email) == null)
             {
                 await CreateRolesAsync(context, roleManager);
-<<<<<<< HEAD
+
                 var identityUser = new UserDetails() { Email = email, UserName = email };
-=======
-                var identityUser = new IdentityUser() { Email = email, UserName = email };
->>>>>>> Emre
                 var result = await userManager.CreateAsync(identityUser, pwd);
                 if (result.Succeeded)
                 {

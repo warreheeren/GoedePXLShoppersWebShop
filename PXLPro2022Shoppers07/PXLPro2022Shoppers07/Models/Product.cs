@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-<<<<<<< HEAD
-=======
+
+
 using Microsoft.AspNetCore.Identity;
->>>>>>> Emre
+
 
 namespace PXLPro2022Shoppers07.Models
 {
@@ -14,9 +14,9 @@ namespace PXLPro2022Shoppers07.Models
         public virtual List<ProductImage> ProductImage { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-<<<<<<< HEAD
-=======
 
->>>>>>> Emre
+
+
+
     }
 }

@@ -5,10 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-<<<<<<< HEAD
 using PXLPro2022Shoppers07.Models;
-=======
->>>>>>> Emre
 using PXLPro2022Shoppers07.Services;
 using PXLPro2022Shoppers07.ViewModels;
 
@@ -18,19 +15,11 @@ namespace PXLPro2022Shoppers07.Controllers
     {
         IProductRepository _productRepository;
         IShoppingCartRepository _shoppingCartRepository;
-<<<<<<< HEAD
         UserManager<UserDetails> _userManager;
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
         public ShoppingCartController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, UserManager<UserDetails> userManager)
-=======
-        UserManager<IdentityUser> _userManager;
-        [ViewContext]
-        public ViewContext ViewContext { get; set; }
-
-        public ShoppingCartController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, UserManager<IdentityUser> userManager)
->>>>>>> Emre
         {
             _productRepository = productRepository;
             _shoppingCartRepository = shoppingCartRepository;
