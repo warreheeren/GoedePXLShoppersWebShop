@@ -23,6 +23,16 @@ namespace PXLPro2022Shoppers07.Services
             return cart;
         }
 
+        public void RemoveProduct(Product product, string identityUserId)
+        {
+            var userShoppingCart = GetShoppingCart(identityUserId);
+
+            var x = userShoppingCart.ShoppingCartItems.FirstOrDefault(x => x.Product.ProductId == product.ProductId);
+
+            _context.ShoppingCartItems.Remove(x);
+            _context.SaveChanges();
+        }
+
 
         public void AddToCart(Product product, int amount, string IdentityUserId)
         {

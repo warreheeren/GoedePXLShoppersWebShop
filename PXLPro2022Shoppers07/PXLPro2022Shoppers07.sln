@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PXLPro2022Shoppers07", "PXL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper07WebAPI", "Shopper07WebAPI\Shopper07WebAPI.csproj", "{3D159D3E-4AAC-49CA-B166-98DCE10B8D2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PXLPro2022Shoppers07.Shared", "PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj", "{B4863CF6-0445-4C4E-9D64-F77AFFECB3AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3D159D3E-4AAC-49CA-B166-98DCE10B8D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D159D3E-4AAC-49CA-B166-98DCE10B8D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D159D3E-4AAC-49CA-B166-98DCE10B8D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4863CF6-0445-4C4E-9D64-F77AFFECB3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4863CF6-0445-4C4E-9D64-F77AFFECB3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4863CF6-0445-4C4E-9D64-F77AFFECB3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4863CF6-0445-4C4E-9D64-F77AFFECB3AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

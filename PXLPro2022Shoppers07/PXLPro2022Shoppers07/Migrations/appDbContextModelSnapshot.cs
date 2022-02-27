@@ -193,6 +193,9 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OrderDate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 

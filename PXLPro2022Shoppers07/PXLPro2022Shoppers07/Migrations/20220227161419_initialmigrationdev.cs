@@ -192,6 +192,7 @@ namespace PXLPro2022Shoppers07.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDate = table.Column<string>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
