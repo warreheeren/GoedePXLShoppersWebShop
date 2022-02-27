@@ -10,7 +10,7 @@ using PXLPro2022Shoppers07.Data;
 namespace PXLPro2022Shoppers07.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    [Migration("20220227123630_initialmigrationdev")]
+    [Migration("20220227161419_initialmigrationdev")]
     partial class initialmigrationdev
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,6 +193,9 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZipCode")

@@ -23,6 +23,10 @@
     <Compile Remove="Migrations\20220223154657_firstname.Designer.cs" />
     <Compile Remove="Migrations\20220224083458_shoppingcart.cs" />
     <Compile Remove="Migrations\20220224083458_shoppingcart.Designer.cs" />
+    <Compile Remove="Migrations\20220227123630_initialmigrationdev.cs" />
+    <Compile Remove="Migrations\20220227123630_initialmigrationdev.Designer.cs" />
+    <Compile Remove="Migrations\20220227154947_initialmigrationdev.cs" />
+    <Compile Remove="Migrations\20220227154947_initialmigrationdev.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,14 +37,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="RestSharp" Version="106.13.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj" />
   </ItemGroup>
 
 </Project>

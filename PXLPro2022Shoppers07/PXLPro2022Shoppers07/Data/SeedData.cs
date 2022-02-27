@@ -13,21 +13,15 @@ namespace PXLPro2022Shoppers07.Data
     {
         public const string Admin = "Admin";
         public const string Client = "Client";
-
     }
 
     public class SeedData
     {
-
         public static async void MigrateAndPopulate(IApplicationBuilder app)
         {
             appDbContext context = app.ApplicationServices.CreateScope().ServiceProvider
                 .GetRequiredService<appDbContext>();
-
             RoleManager<IdentityRole> roleManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-
-
             UserManager<UserDetails> userManager = app.ApplicationServices.CreateScope().ServiceProvider
                 .GetRequiredService<UserManager<UserDetails>>();
             await CreateRolesAsync(context, roleManager);

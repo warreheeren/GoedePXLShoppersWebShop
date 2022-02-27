@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.ViewModels;
 using System.Threading.Tasks;
+using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07.Controllers
 {
@@ -12,12 +13,14 @@ namespace PXLPro2022Shoppers07.Controllers
         UserManager<UserDetails> _userManager;
         RoleManager<IdentityRole> _roleManager;
         SignInManager<UserDetails> _signInManager;
+        private IOrderRepository _orderRepository;
 
-        public AccountController(UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, SignInManager<UserDetails> signInManager)
+        public AccountController(UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, SignInManager<UserDetails> signInManager, IOrderRepository orderRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _orderRepository = orderRepository;
 
         }
 
@@ -116,6 +119,23 @@ namespace PXLPro2022Shoppers07.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var orderDetail = _orderRepository.getOrderDetails(id);
+            return View(orderDetail);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Orders()
+        {
+            var id = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(id);
+            var orders = _orderRepository.getOrders(user.Id);
+            return View(orders);
         }
 
     }

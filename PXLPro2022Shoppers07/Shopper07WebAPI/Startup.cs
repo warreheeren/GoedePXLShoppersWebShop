@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shopper07WebAPI.Services;
 
 namespace Shopper07WebAPI
 {
@@ -27,8 +28,8 @@ namespace Shopper07WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<appDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IProductStockRepository, ProductStockRepository>();
             services.AddControllers();
         }
 
@@ -50,6 +51,7 @@ namespace Shopper07WebAPI
             {
                 endpoints.MapControllers();
             });
+            SeedData.MigrateAndPopulate(app);
         }
     }
 }

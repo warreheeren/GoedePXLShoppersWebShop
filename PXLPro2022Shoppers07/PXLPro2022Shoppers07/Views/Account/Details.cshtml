@@ -1,9 +1,7 @@
-﻿@model PXLPro2022Shoppers07.ViewModels.ShoppingCartViewModel
-<link rel="stylesheet" href="~/css/ShoppingCart.css" />
-@{
-    ViewData["Title"] = "Index";
-    var x = @Model.ShoppingCart;
+﻿@model IEnumerable<PXLPro2022Shoppers07.Models.OrderDetail>
 
+@{
+    ViewData["Title"] = "Details";
 }
 <div class="container py-5">
     <div class="row d-flex justify-content-center my-4">
@@ -13,7 +11,7 @@
                     <h5 class="mb-0">Cart</h5>
                 </div>
                 
-                @foreach (var product in Model.ShoppingCart.ShoppingCartItems)
+                @foreach (var product in Model)
                 {
                     <hr class="my-4" />
 
@@ -29,28 +27,14 @@
                                 <a asp-controller="Test" asp-action="Details" asp-route-id="@product.Product.ProductId" style="text-decoration: none; color: #212529">
                                     <p><strong>@product.Product.ProductName</strong></p>
                                 </a>
-                                <a asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId" class="btn btn-primary btn-sm mr-1 mb-2">
-                                    <i class="fas fa-trash"  asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId"></i>
-                                </a>
-                                <button type="button" class="btn btn-danger btn-sm mb-2">
-                                    <i class="fas fa-heart"></i>
-                                </button>
                             </div>
 
                             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                <div class="d-flex mb-4" style="max-width: 300px">
-                                    <button class="btn btn-primary h-25 px-3 mr-2">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-
+                                <div class="d-flex mb-4">
                                     <div class="">
-                                        <input min="0" name="quantity" value="@product.Amount" type="number" class="form-control" />
+                                        <input min="0" name="quantity" value="@product.Amount" type="number"  disabled class="form-control" />
                                         <label>Quantity</label>
                                     </div>
-
-                                    <button class="btn btn-primary h-25 px-3 ml-2">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
                                 </div>
                                 <p class="text-md-center">
                                     <strong>@((product.Amount * product.Product.Price).ToString("c"))</strong>
