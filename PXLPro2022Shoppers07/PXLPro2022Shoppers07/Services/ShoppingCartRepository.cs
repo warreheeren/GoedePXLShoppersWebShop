@@ -19,7 +19,14 @@ namespace PXLPro2022Shoppers07.Services
         public ShoppingCart GetShoppingCart(string IdentityUserId)
         {
             var cart = _context.ShoppingCarts.Include(x => x.ShoppingCartItems).ThenInclude(x => x.Product).ThenInclude(x => x.ProductImage).FirstOrDefault(x => x.IdentityUserId == IdentityUserId);
-
+            if (cart == null)
+            {
+                var shoppingcart = new ShoppingCart();
+                shoppingcart.IdentityUserId = IdentityUserId;
+                _context.ShoppingCarts.Add(shoppingcart);
+                _context.SaveChanges();
+                return shoppingcart;
+            }
             return cart;
         }
 

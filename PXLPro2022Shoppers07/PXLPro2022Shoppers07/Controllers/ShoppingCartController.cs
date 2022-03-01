@@ -46,7 +46,16 @@ namespace PXLPro2022Shoppers07.Controllers
                     ShoppingCartTotal = _shoppingCartRepository.GetShoppingCartTotal(userid),
                 };
                 return View(shoppincartviewmodel);
-
+            }
+            else
+            {
+                var newCart = _shoppingCartRepository.CreateShoppingCart(userid);
+                var shoppincartviewmodel = new ShoppingCartViewModel
+                {
+                    ShoppingCart = newCart,
+                    ShoppingCartTotal = 0,
+                };
+                return View(shoppincartviewmodel);
             }
 
             return View();
