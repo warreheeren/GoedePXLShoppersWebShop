@@ -27,6 +27,8 @@
     <Compile Remove="Migrations\20220227123630_initialmigrationdev.Designer.cs" />
     <Compile Remove="Migrations\20220227154947_initialmigrationdev.cs" />
     <Compile Remove="Migrations\20220227154947_initialmigrationdev.Designer.cs" />
+    <Compile Remove="Migrations\20220227161419_initialmigrationdev.cs" />
+    <Compile Remove="Migrations\20220227161419_initialmigrationdev.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

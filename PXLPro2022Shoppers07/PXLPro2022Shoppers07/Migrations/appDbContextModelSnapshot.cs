@@ -216,7 +216,7 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -244,11 +244,17 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("NewPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Sale")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProductId");
 
@@ -468,7 +474,9 @@ namespace PXLPro2022Shoppers07.Migrations
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Order", null)
                         .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PXLPro2022Shoppers07.Models.Product", "Product")
                         .WithMany()
