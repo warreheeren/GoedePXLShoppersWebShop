@@ -19,6 +19,7 @@ namespace PXLPro2022Shoppers07.Data
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<FavoriteProduct> Favorites { get; set; }
 
     }
 }

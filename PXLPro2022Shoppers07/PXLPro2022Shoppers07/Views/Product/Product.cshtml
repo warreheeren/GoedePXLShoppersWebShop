@@ -72,6 +72,12 @@
                        asp-controller="ShoppingCart"
                        asp-action="AddToShoppingCart"
                        asp-route-id="@Model.ProductId">Add to cart</a>
+                    <a class="btn btn-secondary"
+                       asp-controller="FavoriteProduct"
+                       asp-action="FavoriteProduct"
+                       asp-route-id="@Model.ProductId">
+                        <i class="far fa-heart"></i>
+                    </a>
                 </div>
             </div>
 

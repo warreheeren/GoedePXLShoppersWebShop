@@ -30,8 +30,6 @@ namespace PXLPro2022Shoppers07.Data
 
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Client);
 
-            await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Admin);
-
             var img1 = await File.ReadAllBytesAsync(@"Images/img1.jpg");
             var img2 = await File.ReadAllBytesAsync(@"Images/img2.jpg");
             var img3 = await File.ReadAllBytesAsync(@"Images/img3.jpg");

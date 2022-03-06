@@ -20,7 +20,7 @@ namespace PXLPro2022Shoppers07.Controllers
         IShoppingCartRepository _shoppingCartRepository;
         IOrderRepository _orderRepository;
         UserManager<UserDetails> _userManager;
-      
+
         public ShoppingCartController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, IOrderRepository orderRepository, UserManager<UserDetails> userManager)
         {
             _productRepository = productRepository;
@@ -32,27 +32,12 @@ namespace PXLPro2022Shoppers07.Controllers
         {
             var userid = _userManager.GetUserId(User);
             var cart = _shoppingCartRepository.GetShoppingCart(userid);
-            if (cart != null)
+            var shoppincartviewmodel = new ShoppingCartViewModel
             {
-                var shoppincartviewmodel = new ShoppingCartViewModel
-                {
-                    ShoppingCart = cart,
-                    ShoppingCartTotal = _shoppingCartRepository.GetShoppingCartTotal(userid),
-                };
-                return View(shoppincartviewmodel);
-            }
-            else
-            {
-                var newCart = _shoppingCartRepository.CreateShoppingCart(userid);
-                var shoppincartviewmodel = new ShoppingCartViewModel
-                {
-                    ShoppingCart = newCart,
-                    ShoppingCartTotal = 0,
-                };
-                return View(shoppincartviewmodel);
-            }
-
-            return View();
+                ShoppingCart = cart,
+                ShoppingCartTotal = _shoppingCartRepository.GetShoppingCartTotal(userid),
+            };
+            return View(shoppincartviewmodel);
         }
 
         public async Task<IActionResult> AddToShoppingCart(int id)
@@ -71,7 +56,6 @@ namespace PXLPro2022Shoppers07.Controllers
                 if (data.InStock)
                 {
                     var userid = _userManager.GetUserId(User);
-                    var user = await _userManager.FindByIdAsync(userid);
                     _shoppingCartRepository.AddToCart(selectedProduct, 1, userid);
                     return RedirectToAction("Index");
                 }

@@ -30,11 +30,6 @@ namespace PXLPro2022Shoppers07.Services
             return cart;
         }
 
-        public ShoppingCart CreateShoppingCart(string IdentityUserId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void RemoveProduct(Product product, string identityUserId)
         {
             var userShoppingCart = GetShoppingCart(identityUserId);

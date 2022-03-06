@@ -42,6 +42,7 @@ namespace PXLPro2022Shoppers07
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
 
         }
 
