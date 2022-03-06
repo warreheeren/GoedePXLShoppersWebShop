@@ -138,6 +138,13 @@ namespace PXLPro2022Shoppers07.Controllers
             return View(orders);
         }
 
+
+        public async Task<IActionResult> LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
 

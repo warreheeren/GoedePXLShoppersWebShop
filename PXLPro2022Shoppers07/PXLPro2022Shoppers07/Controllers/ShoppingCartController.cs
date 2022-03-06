@@ -28,15 +28,9 @@ namespace PXLPro2022Shoppers07.Controllers
             _orderRepository = orderRepository;
             _userManager = userManager;
         }
-
-
-        [ViewContext]
-        public ViewContext ViewContext { get; set; }
         public async Task<IActionResult> Index()
         {
             var userid = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userid);
-
             var cart = _shoppingCartRepository.GetShoppingCart(userid);
             if (cart != null)
             {

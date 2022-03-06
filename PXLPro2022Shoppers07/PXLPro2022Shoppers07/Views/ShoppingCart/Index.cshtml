@@ -10,7 +10,7 @@
                 <div class="card-header py-3">
                     <h5 class="mb-0">Cart</h5>
                 </div>
-                
+
                 @foreach (var product in Model.ShoppingCart.ShoppingCartItems)
                 {
                     <hr class="my-4" />
@@ -59,6 +59,14 @@
                     </div>
                 }
             </div>
+            <div>
+                 
+                @if (Model.ShoppingCart.ShoppingCartItems.Count == 0)
+                {
+                    <p>bajklfmqjsdflmqsj</p>
+                }
+            </div>
+
             
             <div class="card mb-4">
                 <div class="card-body">
