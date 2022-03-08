@@ -6,9 +6,8 @@ namespace PXLPro2022Shoppers07.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Color { get; set; }
-        public string Description { get; set; }
-        public ProductBrand Brand { get; set; }
+        public string TitleSpecification { get; set; }
+        public string TextSpecification { get; set; }
 
     }
 }

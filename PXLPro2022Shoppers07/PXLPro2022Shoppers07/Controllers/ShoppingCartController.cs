@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -68,7 +69,7 @@ namespace PXLPro2022Shoppers07.Controllers
                 ModelState.AddModelError("Blabla", "Bla bla");
             }
 
-            return RedirectToAction("Index", "Test");
+            return RedirectToAction("Products", "Product");
         }
 
         public async Task<IActionResult> RemoveProduct(int id)
@@ -81,6 +82,7 @@ namespace PXLPro2022Shoppers07.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public async Task<IActionResult> Purchase()
         {
             var userid = _userManager.GetUserId(User);

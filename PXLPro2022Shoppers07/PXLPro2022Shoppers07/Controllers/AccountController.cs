@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.ViewModels;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07.Controllers
@@ -129,6 +130,7 @@ namespace PXLPro2022Shoppers07.Controllers
         }
 
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Orders()
         {

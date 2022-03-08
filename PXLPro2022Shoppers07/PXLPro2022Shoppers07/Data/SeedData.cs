@@ -34,28 +34,34 @@ namespace PXLPro2022Shoppers07.Data
             var img2 = await File.ReadAllBytesAsync(@"Images/img2.jpg");
             var img3 = await File.ReadAllBytesAsync(@"Images/img3.jpg");
             var img4 = await File.ReadAllBytesAsync(@"Images/img4.jpg");
-            Dictionary<string, byte[]> list = new Dictionary<string, byte[]>();
-            list.Add("Img1", img1);
-            list.Add("Img2", img2);
-            list.Add("Img3", img3);
-            list.Add("Img4", img4);
+            Dictionary<string, byte[]> imagesBytesMap = new Dictionary<string, byte[]>();
+            imagesBytesMap.Add("Img1", img1);
+            imagesBytesMap.Add("Img2", img2);
+            imagesBytesMap.Add("Img3", img3);
+            imagesBytesMap.Add("Img4", img4);
+            var specification = new ProductSpecifications
+            {
+                TextSpecification = "Rose gold",
+                TitleSpecification = "Color",
+            };
+            var specification2 = new ProductSpecifications
+            {
+                TextSpecification = "190 gram",
+                TitleSpecification = "Weight",
+            };
+            var specification3 = new ProductSpecifications
+            {
+                TextSpecification = $"1 x Microphone-in jack; 1x Headphone-out jack",
+                TitleSpecification = "Interface",
+            };
+            List<ProductSpecifications> specifications = new List<ProductSpecifications>{specification, specification2,specification3};
+            await CreateProdocutDy(context, "Ultra Wireless Headphones1", 3000,TypeCategory.Headphones, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Beats, "blalalalalala", specifications );
+            await CreateProdocutDy(context, "Ultra Wireless Headphones2", 3000,TypeCategory.Smartphone, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
+            await CreateProdocutDy(context, "Ultra Wireless Headphones3", 3000,TypeCategory.Smartwatch, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
+           }
 
-            await CreateProdocutDy(context, "Ultra Wireless Headphones1", 3000,TypeCategory.Headphones, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones11", 3000,TypeCategory.Headphones, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones111", 3000,TypeCategory.Headphones, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones1111", 3000,TypeCategory.Headphones, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones2", 3000,TypeCategory.Smartphone, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones22", 3000,TypeCategory.Smartphone, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones222", 3000,TypeCategory.Smartphone, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones2222", 3000,TypeCategory.Smartphone, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones3", 3000,TypeCategory.Smartwatch, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones33", 3000,TypeCategory.Smartwatch, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones333", 3000,TypeCategory.Smartwatch, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-            await CreateProdocutDy(context, "Ultra Wireless Headphones3333", 3000, TypeCategory.Smartwatch, list, TypeProduct.Phones, "Rose Gold","Lorem ipsum ipsum", ProductBrand.Logitech);
-        }
 
-
-        static async Task CreateProdocutDy(appDbContext context, string productName, decimal price, string typeCategory, Dictionary<string, byte[]> images, TypeProduct typeProduct, string? color, string? description, ProductBrand productBrand )
+        static async Task CreateProdocutDy(appDbContext context, string productName, decimal price, string typeCategory, Dictionary<string, byte[]> images, TypeProduct typeProduct, string description, ProductBrand productBrand, string productDescription, List<ProductSpecifications> specifications)
         {
             var checkproduct = context.Products.FirstOrDefault(x => x.ProductName == productName);
             if (checkproduct == null)
@@ -67,19 +73,16 @@ namespace PXLPro2022Shoppers07.Data
                     productImages.Add(new ProductImage { Name = image.Key, ProductImageByte = image.Value });
                 }
 
-                var specification = new ProductSpecifications
-                {
-                    Color = color,
-                    Description = description,
-                    Brand = productBrand
-                };
+
                 var product = new Product
                 {
                     ProductName = productName,
                     Price = price,
                     ProductImage = productImages,
                     ProductType = typeProduct,
-                    Specifications = specification,
+                    Specifications = specifications,
+                    ProductBrand = productBrand,
+                    ProductDescription = productDescription
                 };
                 if (checkCategory == null)
                 {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PXLPro2022Shoppers07.Models;
@@ -7,6 +8,7 @@ using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07.Controllers
 {
+    [Authorize]
     public class FavoriteProductController : Controller
     {
         IFavoriteProductRepository _favoriteProductRepository;

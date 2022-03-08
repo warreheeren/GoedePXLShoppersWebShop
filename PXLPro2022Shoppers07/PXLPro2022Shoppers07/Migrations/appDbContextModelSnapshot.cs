@@ -271,13 +271,16 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProductBrand")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductType")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpecificationsId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -285,8 +288,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("FavoriteProductId");
-
-                    b.HasIndex("SpecificationsId");
 
                     b.ToTable("Products");
                 });
@@ -321,16 +322,18 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Brand")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Color")
+                    b.Property<string>("TextSpecification")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("TitleSpecification")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductSpecifications");
                 });
@@ -543,16 +546,19 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasOne("PXLPro2022Shoppers07.Models.FavoriteProduct", null)
                         .WithMany("Products")
                         .HasForeignKey("FavoriteProductId");
-
-                    b.HasOne("PXLPro2022Shoppers07.Models.ProductSpecifications", "Specifications")
-                        .WithMany()
-                        .HasForeignKey("SpecificationsId");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductImage", b =>
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Product", null)
                         .WithMany("ProductImage")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductSpecifications", b =>
+                {
+                    b.HasOne("PXLPro2022Shoppers07.Models.Product", null)
+                        .WithMany("Specifications")
                         .HasForeignKey("ProductId");
                 });
 

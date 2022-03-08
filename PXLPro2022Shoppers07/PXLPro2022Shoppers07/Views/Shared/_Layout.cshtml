@@ -21,7 +21,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -33,6 +33,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Orders">Orders</a>
                         </li>
                     </ul>
+                    <div class="flex-grow-1">
+                        <partial name="_SearchBar" />
+                    </div>
                     <div class="form-inline my-2 my-lg-0">
                         <partial name="_LoginPartial" />
                         <div class="ml-2 mr-2">
@@ -63,9 +66,62 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/Vendors/jquery.easy-autocomplete.min.js"></script>
+    <script type="text/javascript">
+        var options = {
+            url: function(search) {
+                return "/product/search";
+            },
+
+            getValue: "productName",
+            template: {
+                type: "custom",
+                method: function(value, item) {
+                    return "<img src='" +  "data:image/jpg;base64," + item.productImage[0].productImageByte + "' width='40' height='auto' /> " + value;
+                }
+            },
+
+            ajaxSettings: {
+                dataType: "json",
+                method: "POST",
+                data: {
+                    dataType: "json"
+                }
+            },
+
+            showAnimation: {
+                type: "slide",
+                time: 150
+            },
+            hideAnimation: {
+                type: "slide",
+                time: 150
+            },
+
+            list: {
+                match: {
+                    enabled: true
+                },
+                onClickEvent: function() {
+                    var index = $("#basics").getSelectedItemData().productId;
+                    window.location.href = '/product/product/' + index;
+                }
+            },
+
+            preparePostData: function(data) {
+                data.search = $("#basics").val();
+                return data;
+            },
+            requestDelay: 200,
+        };
+        $("#basics").easyAutocomplete(options);
+
+    </script>
+
+    }
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

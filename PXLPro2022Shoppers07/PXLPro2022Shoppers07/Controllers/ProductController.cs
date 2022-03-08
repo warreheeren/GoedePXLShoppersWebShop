@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07.Controllers
@@ -36,6 +35,18 @@ namespace PXLPro2022Shoppers07.Controllers
         {
             var product = _productRepository.GetProductById(id);
             return View(product);
+        }
+
+        public IActionResult Search(string search)
+        {
+            var products = _productRepository.GetProductByName(search);
+            return Json(products);
+        }
+
+        public JsonResult result()
+        {
+            var products = _productRepository.GetProductByName("Ultra");
+            return Json(products);
         }
     }
 }
