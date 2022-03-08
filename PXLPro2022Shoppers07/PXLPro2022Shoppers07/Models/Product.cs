@@ -14,9 +14,7 @@ namespace PXLPro2022Shoppers07.Models
         public virtual List<ProductImage> ProductImage { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-
-
-
+        public virtual List<Review> Review { get; set; }
 
     }
 }

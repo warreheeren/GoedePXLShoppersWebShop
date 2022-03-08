@@ -89,5 +89,9 @@ namespace PXLPro2022Shoppers07.Services
             return total;
         }
 
+        public ShoppingCart CreateShoppingCart(string IdentityUserId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
