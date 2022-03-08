@@ -15,8 +15,8 @@ namespace PXLPro2022Shoppers07.Services
         }
 
 
-        public IEnumerable<Product> AllProducts => _context.Products.Include(x => x.Category).Include(x => x.ProductImage);
+        public IEnumerable<Product> AllProducts => _context.Products.Include(x => x.Category).Include(x => x.ProductImage).Include(x => x.Specifications);
 
-        public Product GetProductById(int ProductId) => _context.Products.Include(x => x.Category).Include(x => x.ProductImage).FirstOrDefault(x => x.ProductId == ProductId);
+        public Product GetProductById(int ProductId) => _context.Products.Include(x => x.Category).Include(x => x.ProductImage).Include(x => x.Specifications).FirstOrDefault(x => x.ProductId == ProductId);
     }
 }

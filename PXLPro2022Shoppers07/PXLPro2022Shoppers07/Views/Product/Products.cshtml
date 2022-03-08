@@ -3,54 +3,46 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="container pb-5">
+    <div class="row">
 
-<h1>Index</h1>
+        <div class="col-md-3">
+            @await Component.InvokeAsync("CategoriesMenu")
+        </div>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            @foreach (var x in item.ProductImage)
-            {
-                <td>
-                    <img src="@x.Base64String" width="50"/>
-                </td>
-            }
+        <div class="col-md-9">
+
+            <div class="row">
+
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img class="card-img-top" src="@product.ProductImage[0].Base64String" alt="@product.ProductName">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-action="Product" asp-route-id="@product.ProductId"> @product.ProductName</a>
+                                </h4>
+                                <p class="card-text pt-2 description">
+                                    @product.Specifications.Description
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted product-price">
+                                    @product.Price.ToString("C")
+                                </small>
+                                <a asp-action="Product" asp-route-id="@product.ProductId" class="btn btn-default btn-sm float-right">
+                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    Shop now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
 
 
-            <td>
-                @Html.ActionLink("Details", "Product", new {  id=item.ProductId }) |
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+    </div>
+</div>

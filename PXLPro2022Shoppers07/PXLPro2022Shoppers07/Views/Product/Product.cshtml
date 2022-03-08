@@ -68,11 +68,11 @@
                     <i class="fa-solid fa-star text-muted"></i>
                 </div>
                 <div class="buttons d-flex flex-row mt-5">
-                    <a class="btn btn-primary"
+                    <a class="btn btn-primary mr-2"
                        asp-controller="ShoppingCart"
                        asp-action="AddToShoppingCart"
                        asp-route-id="@Model.ProductId">Add to cart</a>
-                    <a class="btn btn-secondary"
+                    <a class="btn btn-danger ml-2"
                        asp-controller="FavoriteProduct"
                        asp-action="FavoriteProduct"
                        asp-route-id="@Model.ProductId">
@@ -101,10 +101,13 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            Bla bla
+            <ul>
+               
+            </ul>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="container">
+
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">

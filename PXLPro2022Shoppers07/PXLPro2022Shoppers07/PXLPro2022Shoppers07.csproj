@@ -29,6 +29,16 @@
     <Compile Remove="Migrations\20220227154947_initialmigrationdev.Designer.cs" />
     <Compile Remove="Migrations\20220227161419_initialmigrationdev.cs" />
     <Compile Remove="Migrations\20220227161419_initialmigrationdev.Designer.cs" />
+    <Compile Remove="Migrations\20220305170304_initialnewmodel.cs" />
+    <Compile Remove="Migrations\20220305170304_initialnewmodel.Designer.cs" />
+    <Compile Remove="Migrations\20220306160723_favoriteproduct.cs" />
+    <Compile Remove="Migrations\20220306160723_favoriteproduct.Designer.cs" />
+    <Compile Remove="Migrations\20220308105730_productspeficiations.cs" />
+    <Compile Remove="Migrations\20220308105730_productspeficiations.Designer.cs" />
+    <Compile Remove="Migrations\20220308110503_initialbase.cs" />
+    <Compile Remove="Migrations\20220308110503_initialbase.Designer.cs" />
+    <Compile Remove="Migrations\20220308115943_initialbase.cs" />
+    <Compile Remove="Migrations\20220308115943_initialbase.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.Services;
 
 namespace PXLPro2022Shoppers07.Controllers
@@ -8,17 +9,26 @@ namespace PXLPro2022Shoppers07.Controllers
 
         IProductRepository _productRepository;
         IShoppingCartRepository _shoppingCartRepository;
+        ICategoryRepository _categoryRepository;
 
-        public ProductController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository)
+        public ProductController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
             _shoppingCartRepository = shoppingCartRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Products()
+        public IActionResult Products(string category)
         {
-            var product = _productRepository.AllProducts;
-            return View(product);
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                var product = _productRepository.AllProducts;
+                return View(product);
+            }
+
+            ViewBag.SelectedCategory = category;
+            var products = _categoryRepository.FilterCategory(category);
+            return View(products);
         }
 
 

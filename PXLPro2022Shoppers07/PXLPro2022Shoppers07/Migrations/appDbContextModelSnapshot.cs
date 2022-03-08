@@ -256,7 +256,7 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("FavoriteProductId")
@@ -265,20 +265,28 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<decimal>("NewPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Sale")
-                        .HasColumnType("bit");
+                    b.Property<int>("ProductType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecificationsId")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("FavoriteProductId");
+
+                    b.HasIndex("SpecificationsId");
 
                     b.ToTable("Products");
                 });
@@ -304,6 +312,27 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductSpecifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Brand")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductSpecifications");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ShoppingCart", b =>
@@ -509,13 +538,15 @@ namespace PXLPro2022Shoppers07.Migrations
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("PXLPro2022Shoppers07.Models.FavoriteProduct", null)
                         .WithMany("Products")
                         .HasForeignKey("FavoriteProductId");
+
+                    b.HasOne("PXLPro2022Shoppers07.Models.ProductSpecifications", "Specifications")
+                        .WithMany()
+                        .HasForeignKey("SpecificationsId");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductImage", b =>
