@@ -1,82 +1,80 @@
 ﻿@model PXLPro2022Shoppers07.ViewModels.ShoppingCartViewModel
-<link rel="stylesheet" href="~/css/ShoppingCart.css" />
+@using Microsoft.Extensions.Options
 @{
     ViewData["Title"] = "Index";
 }
+
 <div class="container py-5">
     <div class="row d-flex justify-content-center my-4">
-    @if (Model.ShoppingCart.ShoppingCartItems.Count != 0)
-    {
+        @if (Model.ShoppingCart.ShoppingCartItems.Count != 0)
+        {
 
-        <div class="col-md-8">
-            <div class="mb-4">
-                <div class="card card-header py-3">
-                    <h5 class="mb-0">Cart</h5>
-                </div>
-                <br/>
-                @foreach (var product in Model.ShoppingCart.ShoppingCartItems)
-                {
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                <a class="h-100" asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId">
-                                    <img src="@product.Product.ProductImage[0].Base64String" class="w-100"/>
-                                </a>
-                            </div>
-
-                            <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                <a asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId" style="text-decoration: none; color: #212529">
-                                    <p><strong>@product.Product.ProductName</strong></p>
-                                </a>
-                                <a asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId" class="btn btn-primary btn-sm mr-1 mb-2">
-                                    <i class="fas fa-trash" asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId"></i>
-                                </a>
-                                <a asp-controller="FavoriteProduct" asp-action="FavoriteProduct" asp-route-id="@product.Product.ProductId" class="btn btn-primary btn-sm mr-1 mb-2">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                <div class="d-flex mb-4" style="max-width: 300px">
-                                    <button class="btn btn-primary h-25 px-3 mr-2">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-
-                                    <div class="">
-                                        <input min="0" name="quantity" value="@product.Amount" type="number" class="form-control"/>
-                                        <label>Quantity</label>
-                                    </div>
-
-                                    <button class="btn btn-primary h-25 px-3 ml-2">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                                <p class="text-md-center">
-                                    <strong>@((product.Amount * product.Product.Price).ToString("c"))</strong>
-                                </p>
-                            </div>
-                        </div>
-
+            <div class="col-md-8">
+                <div class="mb-4">
+                    <div class="card card-header py-3">
+                        <h5 class="mb-0">Cart</h5>
                     </div>
-                }
-            </div>
-            <div>
+                    <br />
+                    @foreach (var product in Model.ShoppingCart.ShoppingCartItems)
+                    {
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <a class="h-100" asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId">
+                                        <img src="@product.Product.ProductImage[0].Base64String" class="w-100" />
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <a asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId" style="text-decoration: none; color: #212529">
+                                        <p><strong>@product.Product.ProductName</strong></p>
+                                    </a>
+                                    <a asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId" class="btn btn-primary btn-sm mr-1 mb-2">
+                                        <i class="fas fa-trash" asp-action="RemoveProduct" asp-route-id="@product.Product.ProductId"></i>
+                                    </a>
+                                    <a asp-controller="FavoriteProduct" asp-action="FavoriteProduct" asp-route-id="@product.Product.ProductId" class="btn btn-primary btn-sm mr-1 mb-2">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                        <button class="btn btn-primary h-25 px-3 mr-2">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+
+                                        <div class="">
+                                            <input min="0" name="quantity" value="@product.Amount" type="number" class="form-control" />
+                                            <label>Quantity</label>
+                                        </div>
+
+                                        <button class="btn btn-primary h-25 px-3 ml-2">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-md-center">
+                                        <strong>@((product.Amount * product.Product.Price).ToString("c"))</strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div>
+                </div>
 
 
-
-            </div>
-
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <a class="btn btn-primary btn-lg btn-block" asp-action="Purchase"> Purchase</a>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <a class="btn btn-primary btn-lg btn-block" asp-action="Purchase"> Purchase</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <h1>Cart is Empty</h1>
-    }
+        }
+        else
+        {
+            <h1>Cart is Empty</h1>
+        }
     </div>
 </div>

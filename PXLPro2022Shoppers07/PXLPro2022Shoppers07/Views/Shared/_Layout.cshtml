@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/Vendors/easy-autocomplete.min.css">
+    <link rel="stylesheet" href="~/lib/Vendors/easy-autocomplete.themes.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/ShoppingCart.css" />
 </head>
 <body>
     <header>
@@ -105,23 +109,21 @@
                     enabled: true
                 },
                 onClickEvent: function() {
-                    var index = $("#basics").getSelectedItemData().productId;
+                    var index = $("#searchValue").getSelectedItemData().productId;
                     window.location.href = '/product/product/' + index;
                 }
             },
 
             preparePostData: function(data) {
-                data.search = $("#basics").val();
+                data.search = $("#searchValue").val();
                 return data;
             },
             requestDelay: 200,
         };
-        $("#basics").easyAutocomplete(options);
+        $("#searchValue").easyAutocomplete(options);
 
     </script>
-
     }
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

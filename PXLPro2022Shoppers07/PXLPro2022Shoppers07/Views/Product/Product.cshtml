@@ -125,6 +125,17 @@
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="col-md-12">
                 <br/>
+                <div class="form-group">
+                    <span class="text-warning">
+                        <i class="ratingStar fas fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                        <i class="ratingStar far fa-star"></i>
+                    </span>               
+                </div>
+
+              
                 
             </div>
         </div>
@@ -159,12 +170,6 @@
         background: orange;
     }
 
-
-    /*.nav-link::after {
-        background: transparent !important;
-        content: none
-    }*/
-
     .text-muted {
         color: rgba(0, 0, 0, 0.2) !important;
     }
@@ -197,3 +202,15 @@
         border-bottom: solid 1px #ddd;
     }
 </style>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(".ratingStar").hover(function () {
+            $(".ratingStar").addClass("far").removeClass("fas");
+
+            $(this).addClass("fas").removeClass("far");
+            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        });
+    </script>
+}

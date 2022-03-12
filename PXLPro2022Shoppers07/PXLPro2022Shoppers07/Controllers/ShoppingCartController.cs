@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +14,8 @@ using PXLPro2022Shoppers07.Services;
 using PXLPro2022Shoppers07.Shared;
 using PXLPro2022Shoppers07.ViewModels;
 using RestSharp;
-
+using Stripe;
+using Stripe.Checkout;
 namespace PXLPro2022Shoppers07.Controllers
 {
     public class ShoppingCartController : Controller
@@ -83,17 +86,7 @@ namespace PXLPro2022Shoppers07.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Purchase()
-        {
-            var userid = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userid);
-
-            var cart = _shoppingCartRepository.GetShoppingCart(userid);
-            _orderRepository.Purchase(cart, user);
-            return RedirectToAction("Index");
-        }
-
-
-
+        public async Task<IActionResult> Purchase() => RedirectToAction("pay","Payment");
+        
     }
 }
