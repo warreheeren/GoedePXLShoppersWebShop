@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserDetails> userManager;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,18 +10,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/Vendors/easy-autocomplete.min.css">
+    <link rel="stylesheet" href="~/lib/Vendors/easy-autocomplete.themes.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/ShoppingCart.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PXLPro2022Shoppers07</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Webshop</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -27,22 +34,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Products">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">ShoppingCart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="UserDetails">UserDetails</a>
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Orders">Orders</a>
                         </li>
                     </ul>
+                    <div class="flex-grow-1">
+                        <partial name="_SearchBar" />
+                    </div>
+                    <div class="form-inline my-2 my-lg-0">
+                        <partial name="_LoginPartial" />
+                        <div class="ml-2 mr-2">
+                            <a asp-controller="FavoriteProduct" asp-action="Index">
+                                <i class="far fa-heart"></i>
+                            </a>
+                        </div>
+
+                        <div class="ml-2 mr-2">
+                            <a asp-controller="ShoppingCart" asp-action="Index">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -58,10 +69,61 @@
             &copy; 2022 - PXLPro2022Shoppers07 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/Vendors/jquery.easy-autocomplete.min.js"></script>
+    <script type="text/javascript">
+        var options = {
+            url: function(search) {
+                return "/product/search";
+            },
+
+            getValue: "productName",
+            template: {
+                type: "custom",
+                method: function(value, item) {
+                    return "<img src='" +  "data:image/jpg;base64," + item.productImage[0].productImageByte + "' width='40' height='auto' /> " + value;
+                }
+            },
+
+            ajaxSettings: {
+                dataType: "json",
+                method: "POST",
+                data: {
+                    dataType: "json"
+                }
+            },
+
+            showAnimation: {
+                type: "slide",
+                time: 150
+            },
+            hideAnimation: {
+                type: "slide",
+                time: 150
+            },
+
+            list: {
+                match: {
+                    enabled: true
+                },
+                onClickEvent: function() {
+                    var index = $("#searchValue").getSelectedItemData().productId;
+                    window.location.href = '/product/product/' + index;
+                }
+            },
+
+            preparePostData: function(data) {
+                data.search = $("#searchValue").val();
+                return data;
+            },
+            requestDelay: 200,
+        };
+        $("#searchValue").easyAutocomplete(options);
+
+    </script>
+    }
     @RenderSection("Scripts", required: false)
 </body>
 </html>

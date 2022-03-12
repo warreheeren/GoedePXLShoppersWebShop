@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +14,8 @@ using PXLPro2022Shoppers07.Services;
 using PXLPro2022Shoppers07.Shared;
 using PXLPro2022Shoppers07.ViewModels;
 using RestSharp;
-
+using Stripe;
+using Stripe.Checkout;
 namespace PXLPro2022Shoppers07.Controllers
 {
     public class ShoppingCartController : Controller
@@ -20,7 +24,7 @@ namespace PXLPro2022Shoppers07.Controllers
         IShoppingCartRepository _shoppingCartRepository;
         IOrderRepository _orderRepository;
         UserManager<UserDetails> _userManager;
-      
+
         public ShoppingCartController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, IOrderRepository orderRepository, UserManager<UserDetails> userManager)
         {
             _productRepository = productRepository;
@@ -28,37 +32,16 @@ namespace PXLPro2022Shoppers07.Controllers
             _orderRepository = orderRepository;
             _userManager = userManager;
         }
-
-
-        [ViewContext]
-        public ViewContext ViewContext { get; set; }
         public async Task<IActionResult> Index()
         {
             var userid = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userid);
-
             var cart = _shoppingCartRepository.GetShoppingCart(userid);
-            if (cart != null)
+            var shoppincartviewmodel = new ShoppingCartViewModel
             {
-                var shoppincartviewmodel = new ShoppingCartViewModel
-                {
-                    ShoppingCart = cart,
-                    ShoppingCartTotal = _shoppingCartRepository.GetShoppingCartTotal(userid),
-                };
-                return View(shoppincartviewmodel);
-            }
-            else
-            {
-                var newCart = _shoppingCartRepository.CreateShoppingCart(userid);
-                var shoppincartviewmodel = new ShoppingCartViewModel
-                {
-                    ShoppingCart = newCart,
-                    ShoppingCartTotal = 0,
-                };
-                return View(shoppincartviewmodel);
-            }
-
-            return View();
+                ShoppingCart = cart,
+                ShoppingCartTotal = _shoppingCartRepository.GetShoppingCartTotal(userid),
+            };
+            return View(shoppincartviewmodel);
         }
 
         public async Task<IActionResult> AddToShoppingCart(int id)
@@ -77,7 +60,6 @@ namespace PXLPro2022Shoppers07.Controllers
                 if (data.InStock)
                 {
                     var userid = _userManager.GetUserId(User);
-                    var user = await _userManager.FindByIdAsync(userid);
                     _shoppingCartRepository.AddToCart(selectedProduct, 1, userid);
                     return RedirectToAction("Index");
                 }
@@ -90,7 +72,7 @@ namespace PXLPro2022Shoppers07.Controllers
                 ModelState.AddModelError("Blabla", "Bla bla");
             }
 
-            return RedirectToAction("Index", "Test");
+            return RedirectToAction("Products", "Product");
         }
 
         public async Task<IActionResult> RemoveProduct(int id)
@@ -103,17 +85,8 @@ namespace PXLPro2022Shoppers07.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Purchase()
-        {
-            var userid = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userid);
-
-            var cart = _shoppingCartRepository.GetShoppingCart(userid);
-            _orderRepository.Purchase(cart, user);
-            return RedirectToAction("Index");
-        }
-
-
-
+        [Authorize]
+        public async Task<IActionResult> Purchase() => RedirectToAction("pay","Payment");
+        
     }
 }

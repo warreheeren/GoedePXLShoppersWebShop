@@ -18,13 +18,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                <a class="h-100" asp-controller="Test" asp-action="Details" asp-route-id="@product.Product.ProductId">
+                                <a class="h-100" asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId">
                                     <img src="@product.Product.ProductImage[0].Base64String" class="w-100" />
                                 </a>
                             </div>
 
                             <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                <a asp-controller="Test" asp-action="Details" asp-route-id="@product.Product.ProductId" style="text-decoration: none; color: #212529">
+                                <a asp-controller="Product" asp-action="Product" asp-route-id="@product.Product.ProductId" style="text-decoration: none; color: #212529">
                                     <p><strong>@product.Product.ProductName</strong></p>
                                 </a>
                             </div>
@@ -44,12 +44,6 @@
 
                     </div>
                 }
-            </div>
-            
-            <div class="card mb-4">
-                <div class="card-body">
-                    <a class="btn btn-primary btn-lg btn-block" asp-action="Purchase"> Purchase</a>
-                </div>
             </div>
         </div>
     </div>

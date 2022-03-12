@@ -17,8 +17,12 @@ namespace PXLPro2022Shoppers07.Services
 
         public IEnumerable<Product> FilterCategory(string category)
         {
-            return _context.Products.Include(x => x.ProductImage).Include(x => x.Category).Where(x => x.Category.CategoryName == category).OrderBy(x => x.ProductId);
+            return _context.Products.Include(x => x.Category).Where(x => x.Category.CategoryName == category).Include(x => x.ProductImage).Include(x => x.Specifications);
         }
 
+        public IEnumerable<Category> GetCategories()
+        {
+            return _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductImage);
+        }
     }
 }

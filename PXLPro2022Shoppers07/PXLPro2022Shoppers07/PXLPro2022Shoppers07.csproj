@@ -27,6 +27,20 @@
     <Compile Remove="Migrations\20220227123630_initialmigrationdev.Designer.cs" />
     <Compile Remove="Migrations\20220227154947_initialmigrationdev.cs" />
     <Compile Remove="Migrations\20220227154947_initialmigrationdev.Designer.cs" />
+    <Compile Remove="Migrations\20220227161419_initialmigrationdev.cs" />
+    <Compile Remove="Migrations\20220227161419_initialmigrationdev.Designer.cs" />
+    <Compile Remove="Migrations\20220305170304_initialnewmodel.cs" />
+    <Compile Remove="Migrations\20220305170304_initialnewmodel.Designer.cs" />
+    <Compile Remove="Migrations\20220306160723_favoriteproduct.cs" />
+    <Compile Remove="Migrations\20220306160723_favoriteproduct.Designer.cs" />
+    <Compile Remove="Migrations\20220308105730_productspeficiations.cs" />
+    <Compile Remove="Migrations\20220308105730_productspeficiations.Designer.cs" />
+    <Compile Remove="Migrations\20220308110503_initialbase.cs" />
+    <Compile Remove="Migrations\20220308110503_initialbase.Designer.cs" />
+    <Compile Remove="Migrations\20220308115943_initialbase.cs" />
+    <Compile Remove="Migrations\20220308115943_initialbase.Designer.cs" />
+    <Compile Remove="Migrations\20220308120837_initialbase.cs" />
+    <Compile Remove="Migrations\20220308120837_initialbase.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +52,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
+    <PackageReference Include="Stripe.net" Version="39.97.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

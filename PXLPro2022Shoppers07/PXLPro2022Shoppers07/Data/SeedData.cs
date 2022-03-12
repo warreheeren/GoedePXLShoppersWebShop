@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -29,36 +30,83 @@ namespace PXLPro2022Shoppers07.Data
 
             await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Client);
 
-            await CreateIdentityRecordAsync(context, userManager, roleManager, "Client@pxl.be", "Cl3nt001!", Roles.Admin);
+            var img1 = await File.ReadAllBytesAsync(@"Images/img1.jpg");
+            var img2 = await File.ReadAllBytesAsync(@"Images/img2.jpg");
+            var img3 = await File.ReadAllBytesAsync(@"Images/img3.jpg");
+            var img4 = await File.ReadAllBytesAsync(@"Images/img4.jpg");
+            Dictionary<string, byte[]> imagesBytesMap = new Dictionary<string, byte[]>();
+            imagesBytesMap.Add("Img1", img1);
+            imagesBytesMap.Add("Img2", img2);
+            imagesBytesMap.Add("Img3", img3);
+            imagesBytesMap.Add("Img4", img4);
+            var specification = new ProductSpecifications
+            {
+                TextSpecification = "Rose gold",
+                TitleSpecification = "Color",
+            };
+            var specification2 = new ProductSpecifications
+            {
+                TextSpecification = "190 gram",
+                TitleSpecification = "Weight",
+            };
+            var specification3 = new ProductSpecifications
+            {
+                TextSpecification = $"1 x Microphone-in jack; 1x Headphone-out jack",
+                TitleSpecification = "Interface",
+            };
+            List<ProductSpecifications> specifications = new List<ProductSpecifications>{specification, specification2,specification3};
+            await CreateProdocutDy(context, "Ultra Wireless Headphones1", 3000,TypeCategory.Headphones, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Beats, "blalalalalala", specifications );
+            await CreateProdocutDy(context, "Ultra Wireless Headphones2", 3000,TypeCategory.Smartphone, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
+            await CreateProdocutDy(context, "Ultra Wireless Headphones3", 3000,TypeCategory.Smartwatch, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
+           }
 
-            await CreateProduct(context);
-        }
 
-        static async Task CreateProduct(appDbContext context)
+        static async Task CreateProdocutDy(appDbContext context, string productName, decimal price, string typeCategory, Dictionary<string, byte[]> images, TypeProduct typeProduct, string description, ProductBrand productBrand, string productDescription, List<ProductSpecifications> specifications)
         {
-            var category = new Category();
-            category.CategoryName = "Test";
-            category.Description = "Lorem ipsum";
-            var image = new ProductImage();
-            var image2 = new ProductImage();
-            image.Name = "Test";
-            image.ProductImageByte = await File.ReadAllBytesAsync(@"Images/Porsche.jpg");
-            image2.Name = "Test2";
-            image2.ProductImageByte = await File.ReadAllBytesAsync(@"Images/Ferrari.jpg");
-            var product = new Product();
-            product.ProductName = "Test";
-            product.Price = 3000;
-            product.Category = category;
-            product.ProductImage = new List<ProductImage> { image,image2};
+            var checkproduct = context.Products.FirstOrDefault(x => x.ProductName == productName);
+            if (checkproduct == null)
+            {
+                var checkCategory = context.Categories.FirstOrDefault(x => x.CategoryName == typeCategory);
+                var productImages = new List<ProductImage>();
+                foreach (var image in images)
+                {
+                    productImages.Add(new ProductImage { Name = image.Key, ProductImageByte = image.Value });
+                }
 
-            context.Products.Add(product);
-            await context.SaveChangesAsync();
+
+                var product = new Product
+                {
+                    ProductName = productName,
+                    Price = price,
+                    ProductImage = productImages,
+                    ProductType = typeProduct,
+                    Specifications = specifications,
+                    ProductBrand = productBrand,
+                    ProductDescription = productDescription
+                };
+                if (checkCategory == null)
+                {
+                    var category = new Category
+                    {
+                        CategoryName = typeCategory,
+                        Description = description,
+                    };
+
+                    product.Category = category;
+                }
+                else
+                {
+                    product.Category = checkCategory;
+                }
+                context.Products.Add(product);
+                await context.SaveChangesAsync();
+            }
         }
 
 
         public static async Task CreateRolesAsync(appDbContext context, RoleManager<IdentityRole> roleManager)
         {
-            if (!context.Roles.Any())
+            if (!EnumerableExtensions.Any(context.Roles))
             {
                 await CreateRoleAsync(roleManager, Roles.Admin);
                 await CreateRoleAsync(roleManager, Roles.Client);
@@ -76,7 +124,7 @@ namespace PXLPro2022Shoppers07.Data
         }
 
 
-        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, string email,string pwd, string role)
+        private static async Task CreateIdentityRecordAsync(appDbContext context, UserManager<UserDetails> userManager, RoleManager<IdentityRole> roleManager, string email, string pwd, string role)
         {
 
             if (await userManager.FindByEmailAsync(email) == null)

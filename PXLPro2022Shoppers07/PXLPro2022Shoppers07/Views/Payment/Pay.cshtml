@@ -1,0 +1,113 @@
+﻿@model PXLPro2022Shoppers07.ViewModels.PayViewModel
+@{
+
+}
+
+<div class="container d-lg-flex">
+    <div class="box-1 bg-light">
+        <div class="box-inner-1 pb-3 mb-3 ">
+            <p class="dis info my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate quos ipsa sed officiis odio </p>
+        </div>
+    </div>
+     <div class="box-2">
+        <form asp-action="Pay" method="post" class="box-inner-2">
+            <div>
+                <p class="fw-bold">Payment Details</p>
+                <p class="dis mb-3">Complete your purchase by providing your payment details</p>
+            </div>
+             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="pay.Email" class="dis fw-bold mb-2"></label>
+                <input asp-for="pay.Email" class="form-control" value="example@gmail.com" placeholder="example@placeholder.com" />
+                <span asp-validation-for="pay.Email" class="text-danger"></span>
+             
+                </div>
+            <div>
+                <div class="my-3 cardname">
+                    <label asp-for="pay.CustomerName" class="dis fw-bold mb-2"></label>
+                    <input asp-for="pay.CustomerName" value="John Doe" class="form-control" placeholder="John Doe" />
+                    <span asp-validation-for="pay.CustomerName" class="text-danger"></span>
+                </div>
+                <p class="dis fw-bold mb-2">Card details</p>
+                <div class="d-flex align-items-center justify-content-between card-atm">
+                    <div class="fab fa-cc-visa ps-3"></div> 
+                    <input type="text" asp-for="pay.CardNumder" value="4242424242424242" class="form-control" placeholder="Card Details">
+                    <div class="d-flex w-50">
+                        <input type="text" asp-for="pay.Month" value="02" class="form-control px-0" placeholder="MM" maxlength="2">
+                        <input  type="text" asp-for="pay.Year" value="24" class="form-control px-0" placeholder="YY" maxlength="2" >
+                        <input type="password" asp-for="pay.CVC" value="222" maxlength=3 class="form-control px-0" placeholder="CVV">
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column dis">
+
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <p>Subtotal</p>
+                        <p>@Model.SubTotal.ToString("C")</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <p>TAX<span>(21%)</span></p>
+                        <p>@Model.Tax.ToString("C")</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <p class="fw-bold">Total</p>
+                        <p class="fw-bold">@Model.TotalPrice.ToString("C")</p>
+                    </div>
+                    <input type="submit" value="Purchase" class="btn btn-primary mt-2"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+
+
+
+.box-1 {
+    max-width: 450px;
+    padding: 10px 40px;
+    user-select: none
+}
+
+.box-1 div .fs-12 {
+    font-size: 8px;
+    color: white
+}
+
+.box-1 div .fs-14 {
+    font-size: 15px;
+    color: white
+}
+
+.box-1 .name {
+    font-size: 11px;
+    font-weight: 600
+}
+
+.dis {
+    font-size: 12px;
+    font-weight: 500
+}
+
+label.box {
+    width: 100%;
+    font-size: 12px;
+    background: #ddd;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent
+}
+
+
+.box-2 {
+    max-width: 450px;
+    padding: 10px 40px
+}
+
+
+
+</style>

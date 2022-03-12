@@ -168,6 +168,21 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("PXLPro2022Shoppers07.Models.FavoriteProduct", b =>
+                {
+                    b.Property<int>("FavoriteProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FavoriteProductId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -216,7 +231,7 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -241,18 +256,38 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("FavoriteProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("NewPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProductBrand")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductType")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("FavoriteProductId");
 
                     b.ToTable("Products");
                 });
@@ -278,6 +313,29 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductSpecifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TextSpecification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleSpecification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductSpecifications");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ShoppingCart", b =>
@@ -468,7 +526,9 @@ namespace PXLPro2022Shoppers07.Migrations
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Order", null)
                         .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PXLPro2022Shoppers07.Models.Product", "Product")
                         .WithMany()
@@ -481,15 +541,24 @@ namespace PXLPro2022Shoppers07.Migrations
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("PXLPro2022Shoppers07.Models.FavoriteProduct", null)
+                        .WithMany("Products")
+                        .HasForeignKey("FavoriteProductId");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductImage", b =>
                 {
                     b.HasOne("PXLPro2022Shoppers07.Models.Product", null)
                         .WithMany("ProductImage")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("PXLPro2022Shoppers07.Models.ProductSpecifications", b =>
+                {
+                    b.HasOne("PXLPro2022Shoppers07.Models.Product", null)
+                        .WithMany("Specifications")
                         .HasForeignKey("ProductId");
                 });
 

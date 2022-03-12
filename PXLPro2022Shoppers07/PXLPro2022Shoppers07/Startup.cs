@@ -1,20 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PXLPro2022Shoppers07.Data;
-
 using PXLPro2022Shoppers07.Models;
-
 using PXLPro2022Shoppers07.Services;
+using Stripe;
 
 
 namespace PXLPro2022Shoppers07
@@ -42,12 +36,16 @@ namespace PXLPro2022Shoppers07
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = "sk_test_51KcReEKdbdHTzt4uJjBlOP76Ej7t0jmQs00BE1NZWJFxiqqihJAMvesTOfe4loVS7fgNAuH23wjyHwOi9S1iKhvI00n6CmJ3Qu";
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,8 +60,7 @@ namespace PXLPro2022Shoppers07
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthentication();
+             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

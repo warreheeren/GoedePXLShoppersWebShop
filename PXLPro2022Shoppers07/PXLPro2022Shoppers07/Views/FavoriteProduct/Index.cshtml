@@ -1,0 +1,47 @@
+﻿@model PXLPro2022Shoppers07.Models.FavoriteProduct
+
+
+<div class="container py-5">
+    <div class="row d-flex justify-content-center my-4">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Cart</h5>
+                </div>
+
+                @foreach (var product in Model.Products)
+                {
+                    <hr class="my-4" />
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                <a class="h-100" asp-controller="Test" asp-action="Details" asp-route-id="@product.ProductId">
+                                    <img src="@product.ProductImage[0].Base64String" class="w-100" />
+                                </a>
+                            </div>
+                            <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                <a asp-controller="Product" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none; color: #212529">
+                                    <p><strong>@product.ProductName</strong></p>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                <a asp-action="RemoveProduct" asp-route-id="@product.ProductId" class="btn btn-danger btn-sm mr-1 mb-2">
+                                    <i class="fas fa-trash" asp-action="RemoveProduct" asp-route-id="@product.ProductId"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+            <div>
+
+                @if (Model.Products.Count == 0)
+                {
+                    <p>bajklfmqjsdflmqsj</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

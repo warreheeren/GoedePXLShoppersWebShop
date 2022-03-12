@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PXLPro2022Shoppers07.Migrations
 {
-    public partial class initialmigrationdev : Migration
+    public partial class initialbase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +65,19 @@ namespace PXLPro2022Shoppers07.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Favorites",
+                columns: table => new
+                {
+                    FavoriteProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorites", x => x.FavoriteProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,7 +233,13 @@ namespace PXLPro2022Shoppers07.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false)
+                    OnSale = table.Column<bool>(nullable: false),
+                    NewPrice = table.Column<decimal>(nullable: false),
+                    ProductDescription = table.Column<string>(nullable: true),
+                    ProductType = table.Column<int>(nullable: false),
+                    ProductBrand = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: true),
+                    FavoriteProductId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,7 +249,13 @@ namespace PXLPro2022Shoppers07.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Favorites_FavoriteProductId",
+                        column: x => x.FavoriteProductId,
+                        principalTable: "Favorites",
+                        principalColumn: "FavoriteProductId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,9 +265,9 @@ namespace PXLPro2022Shoppers07.Migrations
                     OrderDetailId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
                     Amount = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    OrderId = table.Column<int>(nullable: true)
+                    Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,7 +277,7 @@ namespace PXLPro2022Shoppers07.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
@@ -276,6 +301,27 @@ namespace PXLPro2022Shoppers07.Migrations
                     table.PrimaryKey("PK_ProductImages", x => x.ProductImageId);
                     table.ForeignKey(
                         name: "FK_ProductImages_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSpecifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TitleSpecification = table.Column<string>(nullable: true),
+                    TextSpecification = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSpecifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductSpecifications_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
@@ -374,6 +420,16 @@ namespace PXLPro2022Shoppers07.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_FavoriteProductId",
+                table: "Products",
+                column: "FavoriteProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSpecifications_ProductId",
+                table: "ProductSpecifications",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartItems_ProductId",
                 table: "ShoppingCartItems",
                 column: "ProductId");
@@ -408,6 +464,9 @@ namespace PXLPro2022Shoppers07.Migrations
                 name: "ProductImages");
 
             migrationBuilder.DropTable(
+                name: "ProductSpecifications");
+
+            migrationBuilder.DropTable(
                 name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
@@ -427,6 +486,9 @@ namespace PXLPro2022Shoppers07.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Favorites");
         }
     }
 }

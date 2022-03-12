@@ -84,9 +84,9 @@ namespace PXLPro2022Shoppers07.Services
 
         public decimal GetShoppingCartTotal(string identityUserId)
         {
-            var total = _context.ShoppingCarts.FirstOrDefault(x => x.IdentityUserId == identityUserId).ShoppingCartItems
+            return _context.ShoppingCarts.Include(x => x.ShoppingCartItems).ThenInclude(x => x.Product)
+                .FirstOrDefault(x => x.IdentityUserId == identityUserId).ShoppingCartItems
                 .Select(x => x.Product.Price * x.Amount).Sum();
-            return total;
         }
 
     }
