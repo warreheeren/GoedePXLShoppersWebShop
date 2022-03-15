@@ -4,6 +4,7 @@
     {
         Logitech,
         Beats,
+        Asus,
 
     }
 }

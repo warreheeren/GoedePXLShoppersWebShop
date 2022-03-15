@@ -5,5 +5,6 @@
         public static string Headphones = "Headphones";
         public static string Smartwatch = "Smartwatch";
         public static string Smartphone = "Smartphone";
+        public static string Laptops = "Laptops";
     }
 }

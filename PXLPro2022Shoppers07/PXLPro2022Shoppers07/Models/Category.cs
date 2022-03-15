@@ -8,6 +8,7 @@ namespace PXLPro2022Shoppers07.Models
         public string CategoryName { get; set; }
         public string Description { get; set; }
         public List<Product> Products { get; set; }
+        public virtual List<SubCategory> SubCategories { get; set; }
 
     }
 }

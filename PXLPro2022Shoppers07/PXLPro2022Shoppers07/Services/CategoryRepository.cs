@@ -22,7 +22,7 @@ namespace PXLPro2022Shoppers07.Services
 
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductImage);
+            return _context.Categories;
         }
     }
 }

@@ -4,5 +4,6 @@
     {
         Headphones,
         Phones,
+        GamingLaptop
     }
 }

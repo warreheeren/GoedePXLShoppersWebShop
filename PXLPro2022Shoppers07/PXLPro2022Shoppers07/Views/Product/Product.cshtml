@@ -16,13 +16,21 @@
                                 if (firstImageUsed)
                                 {
                                     <div class="carousel-item">
-                                        <img class="w-100" src="@img.Base64String">
+                                        <div  class="d-flex position-relative align-items-center flex-column justify-content-center">
+
+                                            <img class="w-100" src="@img.Base64String">
+                                        </div>
+
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="carousel-item active">
-                                        <img class="w-100" src="@img.Base64String">
+                                        <div  class="d-flex position-relative align-items-center flex-column justify-content-center">
+
+                                            <img class="w-100" src="@img.Base64String">
+                                        </div>
+
                                     </div>
                                 }
                                 firstImageUsed = true;
@@ -33,15 +41,24 @@
                             {
                                 if (imageCount != 0)
                                 {
+
                                     <li class="m-2" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
-                                        <img class="border" src="@img.Base64String" width="100%" height="auto" />
+                                        <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
+
+                                            <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
+                                        </div>
 
                                     </li>
+
                                 }
                                 else
                                 {
                                     <li class="m-2 active" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
-                                        <img class="border" src="@img.Base64String" width="100%" height="auto" />
+                                        <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
+
+                                            <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
+                                        </div>
+
                                     </li>
                                 }
                                 imageCount++;
@@ -102,29 +119,29 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="col-md-12">
-                <br/>
-                
+                <br />
+
             </div>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="col-md-12">
-                <br/>
+                <br />
                 <table class="table table-striped table-specification">
                     <tbody>
-                    @foreach (var item in Model.Specifications)
-                    {
-                        <tr>
-                            <td>@item.TitleSpecification</td>
-                            <td>@item.TextSpecification</td>
-                        </tr>
-                    }
+                        @foreach (var item in Model.Specifications)
+                        {
+                            <tr>
+                                <td>@item.TitleSpecification</td>
+                                <td>@item.TextSpecification</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="col-md-12">
-                <br/>
+                <br />
                 <div class="form-group">
                     <span class="text-warning">
                         <i class="ratingStar fas fa-star"></i>
@@ -132,11 +149,11 @@
                         <i class="ratingStar far fa-star"></i>
                         <i class="ratingStar far fa-star"></i>
                         <i class="ratingStar far fa-star"></i>
-                    </span>               
+                    </span>
                 </div>
 
-              
-                
+
+
             </div>
         </div>
     </div>
@@ -205,12 +222,12 @@
 
 @section Scripts
 {
-    <script type="text/javascript">
-        $(".ratingStar").hover(function () {
-            $(".ratingStar").addClass("far").removeClass("fas");
+<script type="text/javascript">
+    $(".ratingStar").hover(function () {
+        $(".ratingStar").addClass("far").removeClass("fas");
 
-            $(this).addClass("fas").removeClass("far");
-            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
-        });
-    </script>
+        $(this).addClass("fas").removeClass("far");
+        $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+    });
+</script>
 }

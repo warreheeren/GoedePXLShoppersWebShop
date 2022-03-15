@@ -54,11 +54,47 @@ namespace PXLPro2022Shoppers07.Data
                 TextSpecification = $"1 x Microphone-in jack; 1x Headphone-out jack",
                 TitleSpecification = "Interface",
             };
-            List<ProductSpecifications> specifications = new List<ProductSpecifications>{specification, specification2,specification3};
-            await CreateProdocutDy(context, "Ultra Wireless Headphones1", 3000,TypeCategory.Headphones, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Beats, "blalalalalala", specifications );
-            await CreateProdocutDy(context, "Ultra Wireless Headphones2", 3000,TypeCategory.Smartphone, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
-            await CreateProdocutDy(context, "Ultra Wireless Headphones3", 3000,TypeCategory.Smartwatch, imagesBytesMap, TypeProduct.Phones,"Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications );
-           }
+            List<ProductSpecifications> specifications = new List<ProductSpecifications> { specification, specification2, specification3 };
+            await CreateProdocutDy(context, "Ultra Wireless Headphones1", 3000, TypeCategory.Headphones, imagesBytesMap, TypeProduct.Phones, "Lorem ipsum ipsum", ProductBrand.Beats, "blalalalalala", specifications);
+            await CreateProdocutDy(context, "Ultra Wireless Headphones2", 3000, TypeCategory.Smartphone, imagesBytesMap, TypeProduct.Phones, "Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications);
+            await CreateProdocutDy(context, "Ultra Wireless Headphones3", 3000, TypeCategory.Smartwatch, imagesBytesMap, TypeProduct.Phones, "Lorem ipsum ipsum", ProductBrand.Logitech, "blalalalalala", specifications);
+            await AsusTuf(context);
+        }
+
+
+
+        static async Task AsusTuf(appDbContext context)
+        {
+            var name = "Asus Tuf Dash F15";
+            var description = "lorem ipsum";
+            var category = TypeCategory.Laptops;
+            var type = TypeProduct.GamingLaptop;
+            var brand = ProductBrand.Asus;
+            var img1 = await File.ReadAllBytesAsync(@"Images/Asustuf.jpg");
+            var img2 = await File.ReadAllBytesAsync(@"Images/Asustuf2.jpg");
+            var img3 = await File.ReadAllBytesAsync(@"Images/Asustuf4.jpg");
+            var img4 = await File.ReadAllBytesAsync(@"Images/Asustuf5.jpg");
+            var img5 = await File.ReadAllBytesAsync(@"Images/Asustuf6.jpg");
+            Dictionary<string, byte[]> imagesBytesMap = new Dictionary<string, byte[]>();
+            imagesBytesMap.Add("Img1", img1);
+            imagesBytesMap.Add("Img2", img2);
+            imagesBytesMap.Add("Img3", img3);
+            imagesBytesMap.Add("Img4", img4);
+            imagesBytesMap.Add("Img5", img5);
+            var specification = new ProductSpecifications
+            {
+                TextSpecification = "Intel I7 7700K",
+                TitleSpecification = "CPU",
+            };
+            var specification2 = new ProductSpecifications
+            {
+                TextSpecification = "Nvidia RTX 3060",
+                TitleSpecification = "GPU",
+            };
+            List<ProductSpecifications> specifications = new List<ProductSpecifications> { specification, specification2 };
+            await CreateProdocutDy(context, name,1700,category,imagesBytesMap,type,description,brand,description,specifications);
+        }
+
 
 
         static async Task CreateProdocutDy(appDbContext context, string productName, decimal price, string typeCategory, Dictionary<string, byte[]> images, TypeProduct typeProduct, string description, ProductBrand productBrand, string productDescription, List<ProductSpecifications> specifications)
@@ -139,6 +175,7 @@ namespace PXLPro2022Shoppers07.Data
                 }
             }
         }
+
 
     }
 }

@@ -59,8 +59,4 @@
     <ProjectReference Include="..\PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
