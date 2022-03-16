@@ -131,7 +131,7 @@
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             
-            <div class="col-md-12 d-flex">
+            <div class="col-md-12 d-flex flex-column-reverse">
                 @foreach(var review in Model.Reviews)
                 {
                   <div class="container review-cont">
@@ -145,7 +145,7 @@
                         {
                             <i class="ratingStar far fa-star"></i>
                         }
-                        <h3 style="margin-left: 15px">@review.ReviewTitle</h3>
+                        <h3 style="margin-left: 15px;margin-top: 4px;">@review.ReviewTitle</h3>
                     </div>
                     <p>@review.ReviewDescription</p>
                   </div>
