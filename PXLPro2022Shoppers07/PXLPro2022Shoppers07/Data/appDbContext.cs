@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PXLPro2022Shoppers07.Models;
+using PXLPro2022Shoppers07.ViewModels;
 
 namespace PXLPro2022Shoppers07.Data
 {
@@ -20,6 +21,6 @@ namespace PXLPro2022Shoppers07.Data
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<FavoriteProduct> Favorites { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
     }
 }

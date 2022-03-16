@@ -1,0 +1,141 @@
+﻿@model PXLPro2022Shoppers07.Models.Review
+
+@{
+    ViewData["Title"] = "Review";
+
+}
+
+@*<h1>Review schrijven</h1>
+<hr />*@
+@*<div class="container d-flex justify-content-between align-items-center">
+<p>Jou recentie over:</p>
+<p>@Model.Product.ProductName</p>
+</div>*@@*
+<img src="@Model.Product.ProductImage" />*@
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Review">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input id="starCount" style="display: none;" asp-for="Rating" />
+            <h1>Beschrijf je ervaring</h1>
+            <p>In aantal sterren</p>
+            <div class="form-group">
+                    <span class="text-warning">
+                       @* @for(int i = 0; i <= 4; i++){
+                        if()
+                    }*@
+                        <i onclick= "getStars()" class="ratingStar fas fa-star"></i>
+                        <i onclick= "getStars()" class="ratingStar far fa-star"></i>
+                        <i onclick= "getStars()" class="ratingStar far fa-star"></i>
+                        <i onclick= "getStars()" class="ratingStar far fa-star"></i>
+                        <i onclick= "getStars()" class="ratingStar far fa-star"></i>
+                    </span>
+                </div>
+            <div class="form-group">
+                <label asp-for="ReviewDescription" class="control-label">In eigen woorden</label>
+                <textarea style="height: 7rem" asp-for="ReviewDescription" class="form-control" ></textarea>
+                <span asp-validation-for="ReviewDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewTitle" class="control-label">In één zin</label>
+                <input style="width: 19.25rem" placeholder="Dit wordt de titel" asp-for="ReviewTitle" class="form-control" />
+                <span asp-validation-for="ReviewTitle" class="text-danger"></span>
+            </div>
+            <hr />
+            <h3>Voor bij je review</h3>
+            <div class="form-group">
+                <label  asp-for="Name" class="control-label">Naam</label>
+                <input style="width: 19.25rem" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<style lang="scss">
+    .carousel-indicators {
+        position:
+                 relative !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .carousel-indicators li {
+        width: 100px !important;
+        height: 100px !important;
+        text-indent: 0 !important;
+        opacity: 1 !important;
+    }
+
+    li.active::after {
+        top: -10px;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 4px;
+        content: "";
+        background: orange;
+    }
+
+    .text-muted {
+        color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .nav-link button:hover, button:focus {
+        outline: none;
+    }
+
+    .fa-star {
+        font-size: 27px !important;
+        color: #ffc107;
+    }
+
+    .nav-link.active::after {
+        content: ' ';
+        height: 4px;
+        width: 10px;
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        border-radius: 0 0 10px 10px;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        background-color: #fed700;
+    }
+
+    .tab-pane {
+        border-left: solid 1px #ddd;
+        border-right: solid 1px #ddd;
+        border-bottom: solid 1px #ddd;
+    }
+</style>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(".ratingStar").hover(function () {
+            $(".ratingStar").addClass("far").removeClass("fas");
+
+            $(this).addClass("fas").removeClass("far");
+            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        });
+        
+        function getStars(){
+            var stars = document.getElementsByClassName('fas');
+            var count = stars.length;
+            console.log(count);
+            document.getElementById('starCount').value = count.toString();
+            //$("#starCount").val(count);
+        }
+        
+    </script>
+    
+}
