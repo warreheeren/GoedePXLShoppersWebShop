@@ -1,22 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PXLPro2022Shoppers07.Data;
+using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.Services;
+using PXLPro2022Shoppers07.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PXLPro2022Shoppers07.Controllers
 {
     public class ProductController : Controller
     {
-
+        private readonly appDbContext _context;
         IProductRepository _productRepository;
         IShoppingCartRepository _shoppingCartRepository;
         ICategoryRepository _categoryRepository;
+        private UserManager<UserDetails> _userManager;
 
-        public ProductController(IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, ICategoryRepository categoryRepository)
+        public ProductController(UserManager<UserDetails> userManager,appDbContext context ,IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, ICategoryRepository categoryRepository)
         {
+            _userManager = userManager;
+            _context = context;
             _productRepository = productRepository;
             _shoppingCartRepository = shoppingCartRepository;
             _categoryRepository = categoryRepository;
         }
-
         public IActionResult Products(string category)
         {
             if (string.IsNullOrWhiteSpace(category))
@@ -30,10 +41,10 @@ namespace PXLPro2022Shoppers07.Controllers
             return View(products);
         }
 
-
-        public IActionResult Product(int id)
+        public async Task<IActionResult> Product(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductById(id);
+
             return View(product);
         }
 
@@ -47,6 +58,33 @@ namespace PXLPro2022Shoppers07.Controllers
         {
             var products = _productRepository.GetProductByName("Ultra");
             return Json(products);
+        }
+
+        [HttpGet]
+        public IActionResult Review()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Review(int id, Review review)
+        {
+            review = new Review()
+            {
+                ReviewDate = DateTime.Today,
+                ReviewDescription = review.ReviewDescription,
+                ReviewTitle = review.ReviewTitle,
+                Rating = review.Rating,
+                Name = review.Name,
+            };
+            var result = await _productRepository.AddReviewToProduct(review, id);
+
+            if (result == false)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(Product), new { id = id });
         }
     }
 }

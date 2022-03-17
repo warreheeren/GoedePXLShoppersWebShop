@@ -72,15 +72,22 @@
                            asp-controller="ShoppingCart"
                            asp-action="AddToShoppingCart"
                            asp-route-id="@Model.ProductId">Add to cart</a>
-                        <a class="btn btn-danger ml-2"
+                        <a class="btn btn-danger ml-2 mr-2"
                            asp-controller="FavoriteProduct"
                            asp-action="FavoriteProduct"
                            asp-route-id="@Model.ProductId">
                             <i class="far fa-heart"></i>
                         </a>
+                         <a class="ml-2 btn btn-primary" 
+                            asp-action="Review" 
+                            asp-route-id="@Model.ProductId">
+                            Add review
+                         </a>
+                        @*<a type="button" id="review" class="btn btn-primary"
+                           asp-route-id="@Model.ProductId" asp-action="Review">Add your review
+                        </a>*@
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -123,21 +130,26 @@
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="col-md-12">
-                <br/>
-                <div class="form-group">
-                    <span class="text-warning">
-                        <i class="ratingStar fas fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                    </span>               
-                </div>
-
-              
-                
-            </div>
+            
+            <div class="col-md-12 d-flex flex-column-reverse">
+                @foreach(var review in Model.Reviews)
+                {
+                  <div class="container review-cont">
+                    <p style="float:right;">@review.ReviewDate.ToString("d")</p>
+                    <p style="float:right; margin-right:3px;">@review.Name</p>
+                    <div class="d-flex align-items-center">
+                        @for(var i = 1; i <= @review.Rating; i++){
+                           <i class="ratingStar far fa-star fas"></i>
+                        }
+                        @for (var i = (@review.Rating + 1); i <= 5; i++)
+                        {
+                            <i class="ratingStar far fa-star"></i>
+                        }
+                        <h3 style="margin-left: 15px;margin-top: 4px;">@review.ReviewTitle</h3>
+                    </div>
+                    <p>@review.ReviewDescription</p>
+                  </div>
+                }
         </div>
     </div>
 </div>
@@ -147,8 +159,19 @@
 
 
 <style lang="scss">
+
+    .review-cont{
+        border: 1px solid #f7f7f7;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #f7f7f7;
+        width: auto;
+
+    }
     .carousel-indicators {
-        position: relative !important;
+        position:
+                 relative !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
@@ -179,6 +202,7 @@
     }
 
     .fa-star {
+        font-size: 20px;
         color: #ffc107;
     }
 
@@ -194,7 +218,7 @@
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         background-color: #fed700;
-    }
+     }
 
     .tab-pane {
         border-left: solid 1px #ddd;
@@ -206,11 +230,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(".ratingStar").hover(function () {
-            $(".ratingStar").addClass("far").removeClass("fas");
-
-            $(this).addClass("fas").removeClass("far");
-            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
-        });
+        
     </script>
+    
 }
