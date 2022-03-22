@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PXLPro2022Shoppers07.Models;
 
 namespace PXLPro2022Shoppers07.Services
@@ -7,7 +8,10 @@ namespace PXLPro2022Shoppers07.Services
     {
         IEnumerable<Product> AllProducts { get; }
         IEnumerable<Product> GetOnlyProduct { get; }
-        Product GetProductById(int productId);
+        Task<Product> GetProductById(int productId);
         IEnumerable<Product> GetProductByName(string productName);
+        //IEnumerable<Review> GetReviews(int reviewId);
+
+        Task<bool> AddReviewToProduct(Review review, int productId);
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PXLPro2022Shoppers07.Data;
 
 namespace PXLPro2022Shoppers07.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315200321_review")]
+    partial class review
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,9 +347,6 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
@@ -363,9 +362,14 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.Property<string>("ReviewTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ReviewId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -408,24 +412,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("PXLPro2022Shoppers07.Models.SubCategory", b =>
-                {
-                    b.Property<string>("SubCategoryId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubCategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SubCategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.UserDetails", b =>
@@ -512,6 +498,40 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("PXLPro2022Shoppers07.ViewModels.ReviewViewModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReviewViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -617,6 +637,10 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasOne("PXLPro2022Shoppers07.Models.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("PXLPro2022Shoppers07.Models.UserDetails", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.ShoppingCartItem", b =>
@@ -630,11 +654,15 @@ namespace PXLPro2022Shoppers07.Migrations
                         .HasForeignKey("ShoppingCartId");
                 });
 
-            modelBuilder.Entity("PXLPro2022Shoppers07.Models.SubCategory", b =>
+            modelBuilder.Entity("PXLPro2022Shoppers07.ViewModels.ReviewViewModel", b =>
                 {
-                    b.HasOne("PXLPro2022Shoppers07.Models.Category", null)
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId");
+                    b.HasOne("PXLPro2022Shoppers07.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("PXLPro2022Shoppers07.Models.UserDetails", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,6 +3,7 @@
     bool firstImageUsed = false;
     int imageCount = 0;
 }
+<link href="~/lib/custom/product.css" rel="stylesheet" />
 
 <div class="container mt-5 mb-5">
     <div class="mb-xl-14 mb-6">
@@ -15,55 +16,81 @@
                             {
                                 if (firstImageUsed)
                                 {
-                                    <div class="carousel-item">
-                                        <div  class="d-flex position-relative align-items-center flex-column justify-content-center">
-
-                                            <img class="w-100" src="@img.Base64String">
+                                    <div class="carousel-item ">
+                                        <div class="img-wrapper">
+                                            <img class="w-100 d-block" src="@img.Base64String">
                                         </div>
-
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="carousel-item active">
-                                        <div  class="d-flex position-relative align-items-center flex-column justify-content-center">
-
-                                            <img class="w-100" src="@img.Base64String">
+                                    <div class="carousel-item active ">
+                                        <div class="img-wrapper">
+                                            <img class="w-100 d-block" src="@img.Base64String">
                                         </div>
-
                                     </div>
                                 }
                                 firstImageUsed = true;
                             }
                         </div>
-                        <ul class="carousel-indicators">
-                            @foreach (var img in Model.ProductImage)
-                            {
-                                if (imageCount != 0)
+                        <div class="carousel carousel-indicators">
+
+                            <div class="carousel-inner carousel-second">
+
+                                @foreach (var img in Model.ProductImage)
                                 {
+                                    if (imageCount != 0)
+                                    {
 
-                                    <li class="m-2" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
-                                        <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
+                                        <div class="m-2 carousel-item-second" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
+                                            <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
 
-                                            <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
+                                                <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
+                                            </div>
+
                                         </div>
 
-                                    </li>
+                                    }
+                                    else
+                                    {
+                                        <div class="m-2 active carousel-item-second" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
+                                            <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
 
-                                }
-                                else
-                                {
-                                    <li class="m-2 active" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
-                                        <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
+                                                <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
+                                            </div>
 
-                                            <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
                                         </div>
-
-                                    </li>
+                                    }
+                                    imageCount++;
                                 }
-                                imageCount++;
-                            }
-                        </ul>
+                            </div>
+                            <span class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </span>
+                            <span class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </span>
+                            @*   <div id="carouselExampleControls" class="carousel slide carousel-indicators" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+
+                                @foreach (var img in Model.ProductImage)
+                                {
+                                <div class="carousel-item">
+                                <img src="@img.Base64String" class="d-block w-100 h-100" alt="...">
+                                </div>
+                                }
+
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                                </button>
+                                </div>*@
+                        </div>
                     </div>
                 </div>
 
@@ -89,15 +116,22 @@
                            asp-controller="ShoppingCart"
                            asp-action="AddToShoppingCart"
                            asp-route-id="@Model.ProductId">Add to cart</a>
-                        <a class="btn btn-danger ml-2"
+                        <a class="btn btn-danger ml-2 mr-2"
                            asp-controller="FavoriteProduct"
                            asp-action="FavoriteProduct"
                            asp-route-id="@Model.ProductId">
                             <i class="far fa-heart"></i>
                         </a>
+                        <a class="ml-2 btn btn-primary"
+                           asp-action="Review"
+                           asp-route-id="@Model.ProductId">
+                            Add review
+                        </a>
+                        @*<a type="button" id="review" class="btn btn-primary"
+                            asp-route-id="@Model.ProductId" asp-action="Review">Add your review
+                            </a>*@
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -140,42 +174,55 @@
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="col-md-12">
-                <br />
-                <div class="form-group">
-                    <span class="text-warning">
-                        <i class="ratingStar fas fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                        <i class="ratingStar far fa-star"></i>
-                    </span>
-                </div>
-
-
-
+            <div class="col-md-12 d-flex flex-column-reverse">
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="container review-cont">
+                        <p style="float:right;">@review.ReviewDate.ToString("d")</p>
+                        <p style="float:right; margin-right:3px;">@review.Name</p>
+                        <div class="d-flex align-items-center">
+                            @for (var i = 1; i <= @review.Rating; i++)
+                            {
+                                <i class="ratingStar far fa-star fas"></i>
+                            }
+                            @for (var i = (@review.Rating + 1); i <= 5; i++)
+                            {
+                                <i class="ratingStar far fa-star"></i>
+                            }
+                            <h3 style="margin-left: 15px;margin-top: 4px;">@review.ReviewTitle</h3>
+                        </div>
+                        <p>@review.ReviewDescription</p>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+<style lang="css">
+    .review-cont {
+        border: 1px solid #f7f7f7;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #f7f7f7;
+        width: auto;
+    }
 
-<style lang="scss">
     .carousel-indicators {
         position: relative !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
 
-    .carousel-indicators li {
-        width: 100px !important;
-        height: 100px !important;
-        text-indent: 0 !important;
-        opacity: 1 !important;
-    }
+        .carousel-indicators li {
+            width: 100px !important;
+            height: 100px !important;
+            text-indent: 0 !important;
+            opacity: 1 !important;
+        }
 
     li.active::after {
         top: -10px;
@@ -196,6 +243,7 @@
     }
 
     .fa-star {
+        font-size: 20px;
         color: #ffc107;
     }
 
@@ -222,12 +270,29 @@
 
 @section Scripts
 {
-<script type="text/javascript">
-    $(".ratingStar").hover(function () {
-        $(".ratingStar").addClass("far").removeClass("fas");
+<script>
+    var carouselWidth = $(".carousel-inner")[0].scrollWidth;
+    var cardWidth = $(".carousel-item-second").width();
+    var scrollPosition = 0;
 
-        $(this).addClass("fas").removeClass("far");
-        $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
-    });
+
+
+    $(".carousel-control-next").on("click",
+        function() {
+            if (scrollPosition < (carouselWidth - cardWidth * 4)) { //check if you can go any further
+                scrollPosition += cardWidth; //update scroll position
+                $(".carousel-inner").animate({ scrollLeft: scrollPosition }, 600); //scroll left
+            }
+        });
+    $(".carousel-control-prev").on("click",
+        function() {
+            if (scrollPosition > 0) {
+                scrollPosition -= cardWidth;
+                $(".carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
 </script>
 }

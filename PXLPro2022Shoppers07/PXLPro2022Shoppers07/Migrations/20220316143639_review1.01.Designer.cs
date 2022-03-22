@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PXLPro2022Shoppers07.Data;
 
 namespace PXLPro2022Shoppers07.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220316143639_review1.01")]
+    partial class review101
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -410,24 +412,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("PXLPro2022Shoppers07.Models.SubCategory", b =>
-                {
-                    b.Property<string>("SubCategoryId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubCategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SubCategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategories");
-                });
-
             modelBuilder.Entity("PXLPro2022Shoppers07.Models.UserDetails", b =>
                 {
                     b.Property<string>("Id")
@@ -628,13 +612,6 @@ namespace PXLPro2022Shoppers07.Migrations
                     b.HasOne("PXLPro2022Shoppers07.Models.ShoppingCart", null)
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId");
-                });
-
-            modelBuilder.Entity("PXLPro2022Shoppers07.Models.SubCategory", b =>
-                {
-                    b.HasOne("PXLPro2022Shoppers07.Models.Category", null)
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }
