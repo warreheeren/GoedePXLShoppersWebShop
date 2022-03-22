@@ -20,7 +20,7 @@ namespace PXLPro2022Shoppers07.Controllers
         ICategoryRepository _categoryRepository;
         private UserManager<UserDetails> _userManager;
 
-        public ProductController(UserManager<UserDetails> userManager,appDbContext context ,IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, ICategoryRepository categoryRepository)
+        public ProductController(UserManager<UserDetails> userManager, appDbContext context, IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository, ICategoryRepository categoryRepository)
         {
             _userManager = userManager;
             _context = context;
@@ -36,6 +36,7 @@ namespace PXLPro2022Shoppers07.Controllers
                 return View(product);
             }
 
+
             ViewBag.SelectedCategory = category;
             var products = _categoryRepository.FilterCategory(category);
             return View(products);
@@ -44,8 +45,17 @@ namespace PXLPro2022Shoppers07.Controllers
         public async Task<IActionResult> Product(int id)
         {
             var product = await _productRepository.GetProductById(id);
+            var viewmodel = new ProductViewModel();
+            viewmodel.product = product;
+            if (product.Reviews.Count != 0)
+            {
+                var sum = product.Reviews.Average(x => x.Rating);
+                viewmodel.AverageReviews = sum;
+                return View(viewmodel);
 
-            return View(product);
+            }
+
+            return View(viewmodel);
         }
 
         public IActionResult Search(string search)

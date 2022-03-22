@@ -1,10 +1,10 @@
-﻿@model PXLPro2022Shoppers07.Models.Product
+﻿@model PXLPro2022Shoppers07.ViewModels.ProductViewModel
 @{
     bool firstImageUsed = false;
     int imageCount = 0;
+    int count = Model.product.Reviews.Count;
 }
 <link href="~/lib/custom/product.css" rel="stylesheet" />
-
 <div class="container mt-5 mb-5">
     <div class="mb-xl-14 mb-6">
         <div class="row">
@@ -12,32 +12,36 @@
                 <div style="position: relative">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner h-50">
-                            @foreach (var img in Model.ProductImage)
+                            @foreach (var img in Model.product.ProductImage)
                             {
                                 if (firstImageUsed)
                                 {
-                                    <div class="carousel-item ">
+                                    <div class="carousel-item">
                                         <div class="img-wrapper">
-                                            <img class="w-100 d-block" src="@img.Base64String">
+                                            <div class="w-100 d-block" style="background: #000;border-radius: 10px">
+                                                <img class="w-100 d-block" id="zoom" style="opacity: 0.95" src="@img.Base64String">
+                                            </div>
                                         </div>
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="carousel-item active ">
+                                    <div class="carousel-item active">
                                         <div class="img-wrapper">
-                                            <img class="w-100 d-block" src="@img.Base64String">
+                                            <div class="w-100 d-block" style="background: #000; border-radius: 10px">
+                                                <img class="w-100 d-block" id="zoom" style="opacity: 0.95" src="@img.Base64String">
+                                            </div>
                                         </div>
                                     </div>
                                 }
                                 firstImageUsed = true;
                             }
                         </div>
-                        <div class="carousel carousel-indicators">
+                        <div class="carousel carousel-indicators" style="width: 90%; margin: 0 auto!important">
 
                             <div class="carousel-inner carousel-second">
 
-                                @foreach (var img in Model.ProductImage)
+                                @foreach (var img in Model.product.ProductImage)
                                 {
                                     if (imageCount != 0)
                                     {
@@ -55,7 +59,6 @@
                                     {
                                         <div class="m-2 active carousel-item-second" width="25%" height="auto" style="cursor: pointer" data-target="#carouselExampleIndicators" data-slide-to="@imageCount">
                                             <div class="border d-flex position-relative align-items-center flex-column justify-content-center" style="width: 94px; height: 94px">
-
                                                 <img style="padding: 0.5rem" src="@img.Base64String" width="100%" height="auto" />
                                             </div>
 
@@ -64,32 +67,14 @@
                                     imageCount++;
                                 }
                             </div>
-                            <span class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-prev" style="background: none" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
+                                @*<span class="carousel-control-prev-icon" aria-hidden="true"></span>*@
+                                <i class="fa fa-angle-left" style="color: #5897fb; cursor: pointer"></i>
                             </span>
-                            <span class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next" style="background: none" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
+                                <i class="fa fa-angle-right" style="color: #5897fb; cursor: pointer"></i>
+                                @*<span class="carousel-control-next-icon" aria-hidden="true"></span>*@
                             </span>
-                            @*   <div id="carouselExampleControls" class="carousel slide carousel-indicators" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-
-                                @foreach (var img in Model.ProductImage)
-                                {
-                                <div class="carousel-item">
-                                <img src="@img.Base64String" class="d-block w-100 h-100" alt="...">
-                                </div>
-                                }
-
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                                </button>
-                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -98,38 +83,66 @@
             <div class="col-md-7 mb-md-6 mb-lg-0">
                 <div class="p-3 right-side">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>@Model.ProductName</h3> <span class="heart"><i class="bx bx-heart"></i></span>
+                        <h3>@Model.product.ProductName</h3> <span class="heart"><i class="bx bx-heart"></i></span>
                     </div>
-                    <div class="mt-2 pr-3 content">
-                        <p>Lorem ipsum dolor si amet</p>
+                    <div class="mt-2 pr-3">
+                        <span>Brands: <a>@Model.product.ProductBrand</a></span>
+                        <div class="float-right">
+
+                            <div class="d-flex align-items-center">
+                                @for (var i = 1; i <= @Model.AverageReviews; i++)
+                                {
+                                    <i class="ratingStar far fa-star fas"></i>
+                                }
+                                @for (var y = 1; y <= @Model.AverageReviews; y++)
+                                {
+
+                                }
+                                @for (var i = @Model.AverageReviews; i <= 5; i++)
+                                {
+                                    <i class="ratingStar far fa-star"></i>
+                                }
+                                <span class="font-small ml-1 text-muted">(@count reviews)</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3>@Model.Price.ToString("C")</h3>
-                    <div class="d-flex flex-row align-items-center">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star text-muted"></i>
+                    <div class="mt-2 pr-3 product-price-cover">
+                        <h3 style="color: #5897fb !important; font-weight: 600">@Model.product.Price.ToString("C")</h3>
+                    </div>
+                    <div class="mt-2 pr-3">
+                        <p style="font-size: 14px; font-weight: 400; line-height: 24px; color: #4f5d77;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga eum eligendi? Officia doloremque facere quia. Voluptatum, accusantium!</p>
+                    </div>
+                    <div class="mb-4">
+                        <ul style="list-style: none; padding: 0 !important">
+                            <li class="mb-3" style="font-weight: 400; font-size: 16px"><i class="far fa-hourglass mr-2 text-brand"></i> 1 Year Warranty</li>
+                            <li class="mb-3" style="font-weight: 400; font-size: 16px"><i class="far fa-paper-plane mr-2 text-brand"></i> 30 Day Return Policy</li>
+                            <li class="mb-3" style="font-weight: 400; font-size: 16px"><i class="far fa-address-card mr-2 text-brand"></i> Cash on Delivery available</li>
+                        </ul>
                     </div>
                     <div class="buttons d-flex flex-row mt-5">
-                        <a class="btn btn-primary mr-2"
-                           asp-controller="ShoppingCart"
-                           asp-action="AddToShoppingCart"
-                           asp-route-id="@Model.ProductId">Add to cart</a>
-                        <a class="btn btn-danger ml-2 mr-2"
+                        <form asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@Model.product.ProductId" asp-route-qty="@Model.Quantity" class="d-flex">
+                            <div style="margin: 0 6px 15px 0; max-width: 80px; width: 100%; border-radius: 4px; position: relative; padding: 9px 20px" class="border detail-qty">
+                                <a class="qty-down" style="position: absolute; bottom: 0; right: 8px; color: #707070; font-size: 16px; cursor: pointer"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <input class="qty-val" inputmode="nummeric" value="1" min="1" max="10" asp-for="Quantity" style="border: none; width: 100%">
+                                <a class="qty-up" style="position: absolute; top: 0; right: 8px; color: #707070; font-size: 16px; cursor: pointer"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                            </div>
+
+                            <input class="btn mr-2 btn-custom" style="height: 46px"
+                                   type="submit" value="ADD TO CART">
+                        </form>
+
+                        <a class="product-extra-link hover-up  ml-2 mr-2"
                            asp-controller="FavoriteProduct"
                            asp-action="FavoriteProduct"
-                           asp-route-id="@Model.ProductId">
+                           asp-route-id="@Model.product.ProductId">
                             <i class="far fa-heart"></i>
                         </a>
-                        <a class="ml-2 btn btn-primary"
+                        <a class="ml-2 product-extra-link hover-up"
                            asp-action="Review"
-                           asp-route-id="@Model.ProductId">
-                            Add review
+                           asp-route-id="@Model.product.ProductId">
+                            <i class="fa fa-star" aria-hidden="true"></i>
                         </a>
-                        @*<a type="button" id="review" class="btn btn-primary"
-                            asp-route-id="@Model.ProductId" asp-action="Review">Add your review
-                            </a>*@
+
                     </div>
                 </div>
             </div>
@@ -137,8 +150,7 @@
     </div>
 </div>
 
-<div class="">
-
+<div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Description</a>
@@ -151,18 +163,50 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="fade tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="col-md-12">
-                <br />
+                <div>
+                    <p>
+                        Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop
+                        tightly neurotic hungrily some and dear furiously this apart.
+                    </p>
+                    <p>
+                        Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on spoon-fed that alas rethought much decently richly and wow against the frequent fluidly at formidable acceptably flapped
+                        besides and much circa far over the bucolically hey precarious goldfinch mastodon goodness gnashed a jellyfish and one however because.
+                    </p>
+                    <ul class="product-more-infor mt-30">
+                        <li><span>Type Of Packing</span> Bottle</li>
+                        <li><span>Color</span> Green, Pink, Powder Blue, Purple</li>
+                        <li><span>Quantity Per Case</span> 100ml</li>
+                        <li><span>Ethyl Alcohol</span> 70%</li>
+                        <li><span>Piece In One</span> Carton</li>
+                    </ul>
+                    <hr class="wp-block-separator is-style-dots">
+                    <p>
+                        Laconic overheard dear woodchuck wow this outrageously taut beaver hey hello far meadowlark imitatively egregiously hugged that yikes minimally unanimous pouted flirtatiously as beaver beheld above forward
+                        energetic across this jeepers beneficently cockily less a the raucously that magic upheld far so the this where crud then below after jeez enchanting drunkenly more much wow callously irrespective limpet.
+                    </p>
+                    <h4 class="mt-30">Packaging &amp; Delivery</h4>
+                    <hr class="wp-block-separator is-style-wide">
+                    <p>
+                        Less lion goodness that euphemistically robin expeditiously bluebird smugly scratched far while thus cackled sheepishly rigid after due one assenting regarding censorious while occasional or this more crane
+                        went more as this less much amid overhung anathematic because much held one exuberantly sheep goodness so where rat wry well concomitantly.
+                    </p>
+                    <p>
+                        Scallop or far crud plain remarkably far by thus far iguana lewd precociously and and less rattlesnake contrary caustic wow this near alas and next and pled the yikes articulate about as less cackled dalmatian
+                        in much less well jeering for the thanks blindly sentimental whimpered less across objectively fanciful grimaced wildly some wow and rose jeepers outgrew lugubrious luridly irrationally attractively
+                        dachshund.
+                    </p>
+                </div>
 
             </div>
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="fade tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="col-md-12">
                 <br />
-                <table class="table table-striped table-specification">
+                <table class="table table-specification">
                     <tbody>
-                        @foreach (var item in Model.Specifications)
+                        @foreach (var item in Model.product.Specifications)
                         {
                             <tr>
                                 <td>@item.TitleSpecification</td>
@@ -173,9 +217,9 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="fade tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="col-md-12 d-flex flex-column-reverse">
-                @foreach (var review in Model.Reviews)
+                @foreach (var review in Model.product.Reviews)
                 {
                     <div class="container review-cont">
                         <p style="float:right;">@review.ReviewDate.ToString("d")</p>
@@ -202,6 +246,92 @@
 
 
 <style lang="css">
+
+    .tab-pane {
+        border: none!important;
+    }
+
+    .nav-link.active {
+        border: none;
+        border-bottom-color: #5897fb !important;
+        color: #5897fb !important;
+    }
+    
+
+
+    .table-specification td {
+        border: 1px solid #dee2e6 !important;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input:focus {
+        outline-width: 0;
+    }
+
+    .btn-custom {
+        font-size: 15px;
+        font-weight: 500;
+        padding: 12px 40px;
+        color: #ffffff;
+        border: none;
+        background-color: #5897fb;
+        border-radius: 50px;
+    }
+
+    .product-extra-link {
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        color: #333;
+        border-radius: 4px;
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        text-align: center;
+        vertical-align: top;
+        width: 40px;
+        margin: 0 3px;
+        transition: all 0.5s ease-out 0s;
+    }
+
+        .product-extra-link i {
+            font-size: 16px !important;
+        }
+
+    .hover-up:hover {
+        transform: translateY(-5px);
+        transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+        background-color: #5897fb !important;
+        color: #fff;
+    }
+
+    .detail-qty > a:hover {
+        color: #5897fb !important;
+        transition: all .3s ease 0s !important;
+    }
+
+    .text-brand {
+        color: #5897fb !important;
+    }
+
+    .product-price-cover {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .fa-star {
+        font-size: 12px !important;
+    }
+
     .review-cont {
         border: 1px solid #f7f7f7;
         margin: 10px;
@@ -234,10 +364,10 @@
         background: orange;
     }
 
-    .text-muted {
-        color: rgba(0, 0, 0, 0.2) !important;
-    }
-
+    /*  .text-muted {
+                color: rgba(0, 0, 0, 0.2) !important;
+            }
+        */
     .nav-link button:hover, button:focus {
         outline: none;
     }
@@ -271,6 +401,14 @@
 @section Scripts
 {
 <script>
+    //https://localhost:44303/ShoppingCart/AddToShoppingCart/1?qty=0
+
+
+
+</script>
+
+
+<script>
     var carouselWidth = $(".carousel-inner")[0].scrollWidth;
     var cardWidth = $(".carousel-item-second").width();
     var scrollPosition = 0;
@@ -295,4 +433,30 @@
             }
         });
 </script>
+
+<script>
+    $('.detail-qty').each(function () {
+        var qtyval = parseInt($(this).find('.qty-val').val(), 10);
+        $('.qty-up').on('click', function (event) {
+            event.preventDefault();
+            qtyval = qtyval + 1;
+
+            $(this).prev().text(qtyval);
+            $(this).prev().val(qtyval);
+        });
+        $('.qty-down').on('click', function (event) {
+            event.preventDefault();
+            qtyval = qtyval - 1;
+            if (qtyval > 1) {
+                $(this).next().text(qtyval);
+                $(this).next().val(qtyval);
+            } else {
+                qtyval = 1;
+                $(this).next().text(qtyval);
+                $(this).next().val(qtyval);
+            }
+        });
+    });
+</script>
+
 }

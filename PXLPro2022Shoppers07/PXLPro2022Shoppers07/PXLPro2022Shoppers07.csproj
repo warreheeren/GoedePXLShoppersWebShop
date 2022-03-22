@@ -59,4 +59,8 @@
     <ProjectReference Include="..\PXLPro2022Shoppers07.Shared\PXLPro2022Shoppers07.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\Vendors\maps\" />
+  </ItemGroup>
+
 </Project>

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using PXLPro2022Shoppers07.Models;
 using PXLPro2022Shoppers07.Services;
 using PXLPro2022Shoppers07.Shared;
 using PXLPro2022Shoppers07.ViewModels;
 using RestSharp;
-using Stripe;
-using Stripe.Checkout;
+
 namespace PXLPro2022Shoppers07.Controllers
 {
     public class ShoppingCartController : Controller
@@ -44,7 +39,7 @@ namespace PXLPro2022Shoppers07.Controllers
             return View(shoppincartviewmodel);
         }
 
-        public async Task<IActionResult> AddToShoppingCart(int id)
+        public async Task<IActionResult> AddToShoppingCart(ProductViewModel product, int id)
         {
             var client = new RestClient($"https://localhost:5001/api/stock/{id}");
             var request = new RestRequest(Method.GET);
@@ -60,7 +55,7 @@ namespace PXLPro2022Shoppers07.Controllers
                 if (data.InStock)
                 {
                     var userid = _userManager.GetUserId(User);
-                    _shoppingCartRepository.AddToCart(selectedProduct, 1, userid);
+                    _shoppingCartRepository.AddToCart(selectedProduct, product.Quantity, userid);
                     return RedirectToAction("Index");
                 }
 
